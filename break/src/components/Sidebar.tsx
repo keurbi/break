@@ -39,14 +39,19 @@ const Sidebar = () => {
       <div className="flex flex-col items-center">
         <Link href="/welcome">
           <div
-            className="cursor-pointer mb-1" 
+            className="cursor-pointer mb-1"
             onMouseEnter={() => setHovered('/welcome')}
             onMouseLeave={() => setHovered(null)}
           >
             <Coffee color={selected === '/welcome' || hovered === '/welcome' ? primaryColor : grayColor} className="w-20 h-20" />
           </div>
         </Link>
-        <div className="w-16 h-[4.5px] bg-gray-500 mb-40"></div> 
+        <div
+          className="w-16 h-[4.5px] mb-32"
+          style={{
+            backgroundColor: selected === '/welcome' || hovered === '/welcome' ? primaryColor : grayColor,
+          }}
+        ></div>
         <nav className="flex flex-col items-center justify-center flex-1 space-y-28">
           {menuItems.map(item => (
             <Link key={item.href} href={item.href}>
