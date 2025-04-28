@@ -8,7 +8,7 @@ const Sidebar = () => {
   const [selected, setSelected] = useState(router.pathname);
   const [hovered, setHovered] = useState<string | null>(null);
 
-  const primaryColor = '#7346FF'; // Couleur primaire définie dans globals.css
+  const primaryColor = '#7346FF';
   const grayColor = '#656565';
 
   const menuItems = [
