@@ -1,70 +1,35 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { PauseCircle, Activity, Grid, Settings, Coffee } from 'lucide-react';
 
 const Sidebar = () => {
   const router = useRouter();
   const [selected, setSelected] = useState(router.pathname);
+  const [hovered, setHovered] = useState<string | null>(null);
+
+  const primaryColor = '#7346FF'; // Couleur primaire définie dans globals.css
+  const grayColor = '#656565';
 
   const menuItems = [
     {
       href: '/breaks',
-      icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          className={`w-16 h-16 ${
-            selected === '/breaks' ? 'fill-primary' : 'fill-gray-500'
-          } hover:fill-secondary`}
-        >
-          <path d="M50.097,0.014c-9.917,0.874-17.235,5.824-21.501,12.98c-2.859,3.584-8.57,14.526-10.647,20.254 c-3.766,7.123-7.05,15.598-9.62,23.238c-1.571,4.672,5.483,7.72,7.063,3.027c1.922-5.716,4.244-11.896,6.868-17.631 c2.604,5.828,5.25,11.637,8.091,17.354c2.202,4.438,8.828,0.546,6.634-3.877c-2.925-5.885-5.642-11.864-8.319-17.863 c0.034-0.116,0.077-0.229,0.113-0.344c0.446,0.127,0.938,0.166,1.48,0.063c4.096-0.769,8.192-1.536,12.291-2.305 c1.751-0.329,2.422-2.245,2.146-3.779c-0.828-4.597-3.447-7.795-6.707-10.821c-0.484-1.646-2.098-3.102-3.889-4.549 c3.631-5.87,9.559-9.056,17.275-9.736C55.313,5.68,54.001-0.329,50.097,0.014z M35.173,26.143 c1.013,1.054,1.875,2.163,2.526,3.447c-1.982,0.372-3.965,0.743-5.947,1.115C32.752,29.095,33.903,27.575,35.173,26.143z" />
-        </svg>
-      ),
+      icon: <PauseCircle color={selected === '/breaks' || hovered === '/breaks' ? primaryColor : grayColor} className="w-18 h-18" />, // Augmenter la taille des icônes
       label: 'Pauses',
     },
     {
       href: '/activities',
-      icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          className={`w-16 h-16 ${
-            selected === '/activities' ? 'fill-primary' : 'fill-gray-500'
-          } hover:fill-secondary`}
-        >
-          <path d="M50.097,0.014c-9.917,0.874-17.235,5.824-21.501,12.98c-2.859,3.584-8.57,14.526-10.647,20.254 c-3.766,7.123-7.05,15.598-9.62,23.238c-1.571,4.672,5.483,7.72,7.063,3.027c1.922-5.716,4.244-11.896,6.868-17.631 c2.604,5.828,5.25,11.637,8.091,17.354c2.202,4.438,8.828,0.546,6.634-3.877c-2.925-5.885-5.642-11.864-8.319-17.863 c0.034-0.116,0.077-0.229,0.113-0.344c0.446,0.127,0.938,0.166,1.48,0.063c4.096-0.769,8.192-1.536,12.291-2.305 c1.751-0.329,2.422-2.245,2.146-3.779c-0.828-4.597-3.447-7.795-6.707-10.821c-0.484-1.646-2.098-3.102-3.889-4.549 c3.631-5.87,9.559-9.056,17.275-9.736C55.313,5.68,54.001-0.329,50.097,0.014z M35.173,26.143 c1.013,1.054,1.875,2.163,2.526,3.447c-1.982,0.372-3.965,0.743-5.947,1.115C32.752,29.095,33.903,27.575,35.173,26.143z" />
-        </svg>
-      ),
+      icon: <Activity color={selected === '/activities' || hovered === '/activities' ? primaryColor : grayColor} className="w-18 h-18" />, // Augmenter la taille des icônes
       label: 'Activités',
     },
     {
       href: '/dashboard',
-      icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          className={`w-16 h-16 ${
-            selected === '/dashboard' ? 'fill-primary' : 'fill-gray-500'
-          } hover:fill-secondary`}
-        >
-          <path d="M374,2656.982 C369.941,2656.982 366.588,2653.95 366.077,2650.028 L369.755,2650.034 C369.888,2650.035 370.016,2649.981 370.11,2649.886 L371.941,2648.05 C372.172,2647.819 372.56,2647.868 372.726,2648.151 C374.933,2651.92 374.491,2651.167 375.037,2652.094 C375.37,2652.659 376.146,2652.756 376.608,2652.292 L378.76,2650.138 C378.854,2650.044 378.982,2650 379.115,2650 L381.925,2650 C381.414,2654 378.059,2656.982 374,2656.982 M374,2640.964 C378.085,2640.964 381.458,2644 381.936,2648 L378.179,2648 C378.041,2648 377.909,2648.048 377.815,2648.148 L376.482,2649.559 C376.252,2649.802 375.853,2649.754 375.685,2649.464 L373.784,2646.179 L373.794,2646.172 L373.406,2645.504 C373.075,2644.937 372.297,2644.836 371.833,2645.301 L371.341,2645.795 L371.35,2645.78 L369.269,2647.847 C369.175,2647.939 369.049,2648 368.917,2648 L366.064,2648 C366.542,2644 369.915,2640.964 374,2640.964 M374,2639 C368.477,2639 364,2643.478 364,2649 C364,2654.523 368.477,2659 374,2659 C379.523,2659 384,2654.523 384,2649 C384,2643.478 379.523,2639 374,2639" />
-        </svg>
-      ),
+      icon: <Grid color={selected === '/dashboard' || hovered === '/dashboard' ? primaryColor : grayColor} className="w-18 h-18" />, // Augmenter la taille des icônes
       label: 'Tableau de bord',
     },
     {
       href: '/settings',
-      icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          className={`w-16 h-16 ${
-            selected === '/settings' ? 'fill-primary' : 'fill-gray-500'
-          } hover:fill-secondary`}
-        >
-          <path d="M93.5,40.899c0-2.453-1.995-4.447-4.448-4.447H81.98c-0.74-2.545-1.756-5.001-3.035-7.331l4.998-5 c0.826-0.827 1.303-1.973 1.303-3.146c0-1.19-0.462-2.306-1.303-3.146L75.67,9.555c-1.613-1.615-4.673-1.618-6.29,0l-5,5 c-2.327-1.28-4.786-2.296-7.332-3.037v-7.07C57.048,1.995 55.053,0 52.602,0H40.899c-2.453,0-4.447,1.995-4.447,4.448v7.071 c-2.546,0.741-5.005,1.757-7.333,3.037l-5-5c-1.68-1.679-4.609-1.679-6.288,0L9.555,17.83c-1.734,1.734-1.734,4.555,0,6.289 l4.999,5c-1.279,2.33-2.295,4.788-3.036,7.333h-7.07C1.995,36.452,0,38.447,0,40.899V52.6c0,2.453,1.995,4.447,4.448,4.447h7.071 c0.74,2.545,1.757,5.003,3.036,7.332l-4.998,4.999c-0.827,0.827-1.303,1.974-1.303,3.146c0,1.189,0.462,2.307,1.302,3.146 l8.274,8.273c1.614,1.615,4.674,1.619,6.29,0l5-5c2.328,1.279,4.786,2.297,7.333,3.037v7.071c0,2.453,1.995,4.448,4.447,4.448 h11.702c2.453,0,4.446-1.995,4.446-4.448V81.98c2.546-0.74,5.005-1.756,7.332-3.037l5,5c1.681,1.68,4.608,1.68,6.288,0 l8.275-8.273c1.734-1.734,1.734-4.555,0-6.289l-4.998-5.001c1.279-2.329,2.295-4.787,3.035-7.332h7.071 c2.453,0,4.448-1.995,4.448-4.446V40.899z M62.947,46.75c0,8.932-7.266,16.197-16.197,16.197c-8.931,0-16.197-7.266-16.197-16.197 c0-8.931,7.266-16.197,16.197-16.197C55.682,30.553,62.947,37.819,62.947,46.75z" />
-        </svg>
-      ),
+      icon: <Settings color={selected === '/settings' || hovered === '/settings' ? primaryColor : grayColor} className="w-18 h-18" />, // Augmenter la taille des icônes
       label: 'Paramètres',
     },
   ];
@@ -72,13 +37,23 @@ const Sidebar = () => {
   return (
     <div className="w-40 h-full bg-white fixed flex flex-col items-center py-4">
       <div className="flex flex-col items-center">
-        <img src="/logo.svg" alt="Break Logo" width={80} height={80} className="mb-8" />
-        <nav className="flex flex-col items-center space-y-8">
+        <Link href="/welcome">
+          <div
+            className="cursor-pointer mb-40"
+            onMouseEnter={() => setHovered('/welcome')}
+            onMouseLeave={() => setHovered(null)}
+          >
+            <Coffee color={selected === '/welcome' || hovered === '/welcome' ? primaryColor : grayColor} className="w-20 h-20" />
+          </div>
+        </Link>
+        <nav className="flex flex-col items-center justify-center flex-1 space-y-28">
           {menuItems.map(item => (
             <Link key={item.href} href={item.href}>
               <div
                 className="cursor-pointer"
                 onClick={() => setSelected(item.href)}
+                onMouseEnter={() => setHovered(item.href)}
+                onMouseLeave={() => setHovered(null)}
               >
                 {item.icon}
               </div>
