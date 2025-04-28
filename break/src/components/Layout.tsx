@@ -1,15 +1,17 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import Sidebar from './Sidebar';
+import SearchBar from './SearchBar';
 
-interface LayoutProps {
-  children: ReactNode;
-}
-
-const Layout = ({ children }: LayoutProps) => {
+const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
-    <div className="flex bg-tertiary h-screen">
+    <div className="flex">
       <Sidebar />
-      <main className="ml-64 p-4 w-full">{children}</main>
+      <div className="flex-1 ml-40 bg-tertiary min-h-screen flex flex-col">
+        <SearchBar />
+        <main className="flex-1 p-4">
+          {children}
+        </main>
+      </div>
     </div>
   );
 };
