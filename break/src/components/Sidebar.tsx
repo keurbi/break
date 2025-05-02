@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { PauseCircle, Activity, Grid, Settings, Coffee } from 'lucide-react';
+import { PauseCircle, Activity, Grid, Settings, Heart } from 'lucide-react';
 
 const Sidebar = () => {
   const router = useRouter();
@@ -14,28 +14,28 @@ const Sidebar = () => {
   const menuItems = [
     {
       href: '/breaks',
-      icon: <PauseCircle color={selected === '/breaks' || hovered === '/breaks' ? primaryColor : grayColor} className="w-18 h-18" />,
+      icon: <PauseCircle color={selected === '/breaks' || hovered === '/breaks' ? primaryColor : grayColor} className="w-14 h-14" />,
       label: 'Pauses',
     },
     {
       href: '/activities',
-      icon: <Activity color={selected === '/activities' || hovered === '/activities' ? primaryColor : grayColor} className="w-18 h-18" />,
+      icon: <Activity color={selected === '/activities' || hovered === '/activities' ? primaryColor : grayColor} className="w-14 h-14" />,
       label: 'Activités',
     },
     {
       href: '/dashboard',
-      icon: <Grid color={selected === '/dashboard' || hovered === '/dashboard' ? primaryColor : grayColor} className="w-18 h-18" />,
+      icon: <Grid color={selected === '/dashboard' || hovered === '/dashboard' ? primaryColor : grayColor} className="w-14 h-14" />,
       label: 'Tableau de bord',
     },
     {
       href: '/settings',
-      icon: <Settings color={selected === '/settings' || hovered === '/settings' ? primaryColor : grayColor} className="w-18 h-18" />,
+      icon: <Settings color={selected === '/settings' || hovered === '/settings' ? primaryColor : grayColor} className="w-14 h-14" />,
       label: 'Paramètres',
     },
   ];
 
   return (
-    <div className="w-40 h-full bg-white fixed flex flex-col items-center py-4">
+    <div className="w-28 h-full bg-white fixed flex flex-col items-center py-4">
       <div className="flex flex-col items-center">
         <Link href="/welcome">
           <div
@@ -43,16 +43,16 @@ const Sidebar = () => {
             onMouseEnter={() => setHovered('/welcome')}
             onMouseLeave={() => setHovered(null)}
           >
-            <Coffee color={selected === '/welcome' || hovered === '/welcome' ? primaryColor : grayColor} className="w-20 h-20" />
+            <Heart color={selected === '/welcome' || hovered === '/welcome' ? primaryColor : grayColor} className="w-16 h-16" />
           </div>
         </Link>
         <div
-          className="w-16 h-[4.5px] mb-32"
+          className="w-12 h-[4.5px] mb-32"
           style={{
             backgroundColor: selected === '/welcome' || hovered === '/welcome' ? primaryColor : grayColor,
           }}
         ></div>
-        <nav className="flex flex-col items-center justify-center flex-1 space-y-28">
+        <nav className="flex flex-col items-center justify-center flex-1 space-y-20">
           {menuItems.map(item => (
             <Link key={item.href} href={item.href}>
               <div
