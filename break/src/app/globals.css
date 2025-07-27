@@ -39,3 +39,30 @@ body {
 .icon-secondary {
   filter: invert(64%) sepia(20%) saturate(500%) hue-rotate(90deg) brightness(90%) contrast(85%);
 }
+select {
+  color: #CFAAFF;
+  font-weight: bold;
+  background: #fff;
+  font-size: 1.25rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+  padding: 1.25rem 2.5rem 1.25rem 1.25rem;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+select option {
+  color: #CFAAFF;
+  background: #fff;
+  font-weight: bold;
+}
+.select-arrow {
+  position: absolute;
+  right: 1.5rem;
+  top: 50%;
+  pointer-events: none;
+  transform: translateY(-50%);
+  width: 1.5rem;
+  height: 1.5rem;
+  fill: #CFAAFF;
+}
