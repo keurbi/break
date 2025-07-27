@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { PauseCircle, Activity, Grid, Settings, Heart } from 'lucide-react';
+import { PauseCircle, Activity, Grid, Settings, Heart, Users } from 'lucide-react';
 
 const Sidebar = () => {
   const router = useRouter();
   const [selected, setSelected] = useState(router.pathname);
   const [hovered, setHovered] = useState<string | null>(null);
+  const [role, setRole] = useState<string | null>(null);
+
+  useEffect(() => {
+    setRole(localStorage.getItem('role'));
+  }, []);
 
   const primaryColor = '#7346FF';
   const grayColor = '#656565';
@@ -65,6 +70,18 @@ const Sidebar = () => {
               </div>
             </Link>
           ))}
+          {role === 'manager' && (
+            <Link href="/managers">
+              <div
+                className="cursor-pointer"
+                onClick={() => setSelected('/managers')}
+                onMouseEnter={() => setHovered('/managers')}
+                onMouseLeave={() => setHovered(null)}
+              >
+                <Users color={selected === '/managers' || hovered === '/managers' ? primaryColor : grayColor} className="w-14 h-14" />
+              </div>
+            </Link>
+          )}
         </nav>
       </div>
     </div>
