@@ -8,8 +8,7 @@ import DashboardStatsComponent from "../components/dashboard/DashboardStats";
 import { useDashboardData } from "../hooks/useDashboardData";
 
 const Dashboard = () => {
-  const { activities, recentActivitySessions, loading, stats } =
-    useDashboardData();
+  const { activities, recentActivitySessions, loading, stats } = useDashboardData();
   const [currentCard, setCurrentCard] = useState(1);
 
   if (loading) {
