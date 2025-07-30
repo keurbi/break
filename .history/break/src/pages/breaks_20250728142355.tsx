@@ -58,22 +58,9 @@ const Breaks = () => {
 
     const savedBreaks = localStorage.getItem("breaks");
     const savedOnBreak = localStorage.getItem("onBreak");
-    if (savedBreaks) {
-      try {
-        const parsed = JSON.parse(savedBreaks);
-        if (Array.isArray(parsed)) setBreaks(parsed);
-      } catch (e) {
-        setBreaks([]);
-      }
-    }
+    if (savedBreaks) setBreaks(JSON.parse(savedBreaks));
     if (savedOnBreak) setOnBreak(savedOnBreak === "true");
   }, []);
-
-  // localstorage pour l'UI
-  useEffect(() => {
-    localStorage.setItem("breaks", JSON.stringify(breaks));
-    localStorage.setItem("onBreak", onBreak ? "true" : "false");
-  }, [breaks, onBreak]);
 
   const todayBreaks = breaks.filter(
     (b) => b.userId === userId && b.timeStart && isToday(b.timeStart)
@@ -105,8 +92,11 @@ const Breaks = () => {
       userId: uid,
       timeStart: new Date().toISOString(),
     };
-    setBreaks([newBreak, ...breaks]);
+    const updatedBreaks = [newBreak, ...breaks];
+    setBreaks(updatedBreaks);
     setOnBreak(true);
+    localStorage.setItem("breaks", JSON.stringify(updatedBreaks));
+    localStorage.setItem("onBreak", "true");
   };
 
   const handleEndBreak = async () => {
@@ -116,6 +106,9 @@ const Breaks = () => {
     );
     setBreaks(updatedBreaks);
     setOnBreak(false);
+    localStorage.setItem("breaks", JSON.stringify(updatedBreaks));
+    localStorage.setItem("onBreak", "false");
+
     try {
       const auth = getAuth();
       const user = auth.currentUser;
@@ -147,18 +140,11 @@ const Breaks = () => {
       <PageContainer>
         <PageTitleCard title="Prendre une pause" />
         <div className="flex flex-col items-center justify-start min-h-screen py-2 relative">
-          <div className="flex flex-row items-start justify-center w-full max-w-6xl mx-auto mt-2 mb-16 gap-12">
-            <div className="flex flex-col items-center flex-[1.5] mt-12 justify-center">
+          <div className="flex flex-row items-start w-full max-w-6xl mx-auto mt-2 mb-16 gap-12">
+            <div className="flex flex-col items-center flex-[1.5] mt-12">
               <div
-                className="font-bold text-[#7346FF] bg-white px-48 py-16 rounded-lg mb-10 shadow border-[#7346FF] text-center flex items-center justify-center mx-auto"
-                style={{
-                  maxWidth: 700,
-                  fontSize: "7rem",
-                  letterSpacing: "0.08em",
-                  lineHeight: 1.1,
-                  wordBreak: "keep-all",
-                  whiteSpace: "nowrap",
-                }}
+                className="text-8xl font-bold text-[#7346FF] bg-white px-48 py-16 rounded-lg mb-10 shadow border-[#7346FF] w-full text-center"
+                style={{ maxWidth: 600, margin: "0 auto" }}
               >
                 {onBreak && currentBreak && !currentBreak.end
                   ? formatTimer(currentSeconds)
@@ -172,7 +158,7 @@ const Breaks = () => {
                   Commencer une pause
                 </button>
               ) : (
-                <button
+                <buttons
                   onClick={handleEndBreak}
                   className="bg-[#CFAAFF] text-white px-12 py-6 rounded-lg font-bold text-2xl hover:bg-[#7346FF] transition mb-10 w-full"
                 >

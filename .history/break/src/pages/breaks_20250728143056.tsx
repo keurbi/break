@@ -69,7 +69,7 @@ const Breaks = () => {
     if (savedOnBreak) setOnBreak(savedOnBreak === "true");
   }, []);
 
-  // localstorage pour l'UI
+  // Synchronisation automatique du localStorage à chaque changement de breaks ou onBreak
   useEffect(() => {
     localStorage.setItem("breaks", JSON.stringify(breaks));
     localStorage.setItem("onBreak", onBreak ? "true" : "false");
@@ -140,6 +140,7 @@ const Breaks = () => {
         });
       }
     } catch (err) {}
+  };
   };
 
   return (

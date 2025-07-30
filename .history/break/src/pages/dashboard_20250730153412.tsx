@@ -470,7 +470,9 @@ const Dashboard = () => {
                   </h3>
                   <div className="space-y-2">
                     <div className="flex justify-between items-center">
-                      <span className="text-blue-700">Total des pauses</span>
+                      <span className="text-blue-700">
+                        Total des pauses
+                      </span>
                       <span className="font-bold text-blue-900">
                         {weekTotalPauses}
                       </span>
@@ -482,7 +484,9 @@ const Dashboard = () => {
                       </span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-blue-700">Moyenne/jour</span>
+                      <span className="text-blue-700">
+                        Moyenne/jour
+                      </span>
                       <span className="font-bold text-blue-900">
                         {Math.round(weekTotalPauses / 7)} pauses
                       </span>
@@ -497,13 +501,17 @@ const Dashboard = () => {
                   </h3>
                   <div className="space-y-2">
                     <div className="flex justify-between items-center">
-                      <span className="text-green-700">Total activités</span>
+                      <span className="text-green-700">
+                        Total activités
+                      </span>
                       <span className="font-bold text-green-900">
                         {weekActivities.length}
                       </span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-green-700">Temps total</span>
+                      <span className="text-green-700">
+                        Temps total
+                      </span>
                       <span className="font-bold text-green-900">
                         {weekActivities.reduce(
                           (sum: number, a: ActivitySession) => sum + a.duration,
@@ -575,33 +583,33 @@ const Dashboard = () => {
                             </div>
                           </div>
 
-                          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-3 pt-3 border-t border-gray-100">
+                          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-2 pt-2 border-t border-gray-100">
                             <div className="text-center">
-                              <p className="text-gray-500 text-sm">Stress</p>
-                              <p className="font-bold text-red-600 text-sm">
+                              <p className="text-gray-500 text-xs">Stress</p>
+                              <p className="font-bold text-red-600 text-xs">
                                 {session.feedback.stressBefore} →{" "}
                                 {session.feedback.stressAfter}
                               </p>
                             </div>
                             <div className="text-center">
-                              <p className="text-gray-500 text-sm">Énergie</p>
-                              <p className="font-bold text-green-600 text-sm">
+                              <p className="text-gray-500 text-xs">Énergie</p>
+                              <p className="font-bold text-green-600 text-xs">
                                 {session.feedback.energyBefore} →{" "}
                                 {session.feedback.energyAfter}
                               </p>
                             </div>
                             <div className="text-center">
-                              <p className="text-gray-500 text-sm">Humeur</p>
-                              <p className="font-bold text-blue-600 text-sm">
+                              <p className="text-gray-500 text-xs">Humeur</p>
+                              <p className="font-bold text-blue-600 text-xs">
                                 {session.feedback.moodBefore} →{" "}
                                 {session.feedback.moodAfter}
                               </p>
                             </div>
                             <div className="text-center">
-                              <p className="text-gray-500 text-sm">
+                              <p className="text-gray-500 text-xs">
                                 Concentration
                               </p>
-                              <p className="font-bold text-orange-600 text-sm">
+                              <p className="font-bold text-orange-600 text-xs">
                                 {session.feedback.concentration}/10
                               </p>
                             </div>
@@ -611,17 +619,17 @@ const Dashboard = () => {
                     })}
                 </div>
               ) : (
-                <div className="text-center py-10 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl border border-gray-200">
-                  <div className="text-4xl mb-3">🎯</div>
-                  <h3 className="text-lg font-semibold text-gray-700 mb-2">
+                <div className="text-center py-8 bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg border border-gray-200">
+                  <div className="text-3xl mb-2">🎯</div>
+                  <h3 className="text-base font-semibold text-gray-700 mb-1">
                     Aucune activité récente
                   </h3>
-                  <p className="text-gray-500 mb-4 text-base">
+                  <p className="text-gray-500 mb-3 text-sm">
                     Commencez votre première activité pour voir vos statistiques
                     ici !
                   </p>
-                  <div className="bg-white p-3 rounded-lg inline-block border border-gray-200">
-                    <p className="text-sm text-gray-600">
+                  <div className="bg-white p-2 rounded-lg inline-block border border-gray-200">
+                    <p className="text-xs text-gray-600">
                       💡 Astuce : Visitez la page Activités pour découvrir tous
                       les exercices disponibles
                     </p>

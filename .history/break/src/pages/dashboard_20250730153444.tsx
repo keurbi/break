@@ -470,7 +470,9 @@ const Dashboard = () => {
                   </h3>
                   <div className="space-y-2">
                     <div className="flex justify-between items-center">
-                      <span className="text-blue-700">Total des pauses</span>
+                      <span className="text-blue-700">
+                        Total des pauses
+                      </span>
                       <span className="font-bold text-blue-900">
                         {weekTotalPauses}
                       </span>
@@ -482,7 +484,9 @@ const Dashboard = () => {
                       </span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-blue-700">Moyenne/jour</span>
+                      <span className="text-blue-700">
+                        Moyenne/jour
+                      </span>
                       <span className="font-bold text-blue-900">
                         {Math.round(weekTotalPauses / 7)} pauses
                       </span>
@@ -497,13 +501,17 @@ const Dashboard = () => {
                   </h3>
                   <div className="space-y-2">
                     <div className="flex justify-between items-center">
-                      <span className="text-green-700">Total activités</span>
+                      <span className="text-green-700">
+                        Total activités
+                      </span>
                       <span className="font-bold text-green-900">
                         {weekActivities.length}
                       </span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-green-700">Temps total</span>
+                      <span className="text-green-700">
+                        Temps total
+                      </span>
                       <span className="font-bold text-green-900">
                         {weekActivities.reduce(
                           (sum: number, a: ActivitySession) => sum + a.duration,

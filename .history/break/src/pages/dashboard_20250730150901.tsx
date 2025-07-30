@@ -305,43 +305,43 @@ const Dashboard = () => {
 
         {/* Card 1: Vue d'ensemble et Impact bien-être */}
         {currentCard === 1 && (
-          <div className="w-full bg-white rounded-xl shadow-md p-5">
+          <div className="w-full bg-white rounded-xl shadow-md p-4">
             {/* Section 1: Vue d'ensemble rapide */}
-            <div className="mb-7">
-              <div className="flex items-center mb-4">
-                <div className="bg-gradient-to-r from-blue-500 to-blue-600 w-1 h-7 rounded-full mr-3"></div>
+            <div className="mb-6">
+              <div className="flex items-center mb-3">
+                <div className="bg-gradient-to-r from-blue-500 to-blue-600 w-1 h-6 rounded-full mr-3"></div>
                 <h2 className="text-xl font-bold text-gray-800">
                   📊 Vue d'ensemble aujourd'hui
                 </h2>
               </div>
 
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-xl border border-blue-200 hover:shadow-md transition-shadow">
-                  <div className="flex items-center justify-between mb-2">
-                    <h3 className="text-sm font-semibold text-blue-700">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-3 rounded-lg border border-blue-200 hover:shadow-md transition-shadow">
+                  <div className="flex items-center justify-between mb-1">
+                    <h3 className="text-xs font-semibold text-blue-700">
                       Pauses
                     </h3>
-                    <span className="text-xl">⏱️</span>
+                    <span className="text-lg">⏱️</span>
                   </div>
                   <p className="text-2xl font-bold text-blue-800">
                     {totalPauses}
                   </p>
-                  <p className="text-sm text-blue-600">
+                  <p className="text-xs text-blue-600">
                     {totalMinutes} min total
                   </p>
                 </div>
 
-                <div className="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-xl border border-green-200 hover:shadow-md transition-shadow">
-                  <div className="flex items-center justify-between mb-2">
-                    <h3 className="text-sm font-semibold text-green-700">
+                <div className="bg-gradient-to-br from-green-50 to-green-100 p-3 rounded-lg border border-green-200 hover:shadow-md transition-shadow">
+                  <div className="flex items-center justify-between mb-1">
+                    <h3 className="text-xs font-semibold text-green-700">
                       Activités
                     </h3>
-                    <span className="text-xl">🎯</span>
+                    <span className="text-lg">🎯</span>
                   </div>
                   <p className="text-2xl font-bold text-green-800">
                     {todayActivities.length}
                   </p>
-                  <p className="text-sm text-green-600">
+                  <p className="text-xs text-green-600">
                     {todayActivities.reduce(
                       (sum: number, a: ActivitySession) => sum + a.duration,
                       0
@@ -350,96 +350,96 @@ const Dashboard = () => {
                   </p>
                 </div>
 
-                <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-xl border border-purple-200 hover:shadow-md transition-shadow">
-                  <div className="flex items-center justify-between mb-2">
-                    <h3 className="text-sm font-semibold text-purple-700">
+                <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-3 rounded-lg border border-purple-200 hover:shadow-md transition-shadow">
+                  <div className="flex items-center justify-between mb-1">
+                    <h3 className="text-xs font-semibold text-purple-700">
                       Durée moy.
                     </h3>
-                    <span className="text-xl">📏</span>
+                    <span className="text-lg">📏</span>
                   </div>
                   <p className="text-2xl font-bold text-purple-800">
                     {avgMinutes}
                   </p>
-                  <p className="text-sm text-purple-600">min/pause</p>
+                  <p className="text-xs text-purple-600">min/pause</p>
                 </div>
 
-                <div className="bg-gradient-to-br from-orange-50 to-orange-100 p-4 rounded-xl border border-orange-200 hover:shadow-md transition-shadow">
-                  <div className="flex items-center justify-between mb-2">
-                    <h3 className="text-sm font-semibold text-orange-700">
+                <div className="bg-gradient-to-br from-orange-50 to-orange-100 p-3 rounded-lg border border-orange-200 hover:shadow-md transition-shadow">
+                  <div className="flex items-center justify-between mb-1">
+                    <h3 className="text-xs font-semibold text-orange-700">
                       Concentration
                     </h3>
-                    <span className="text-xl">🧠</span>
+                    <span className="text-lg">🧠</span>
                   </div>
                   <p className="text-2xl font-bold text-orange-800">
                     {avgConcentration.toFixed(1)}
                   </p>
-                  <p className="text-sm text-orange-600">/10 moy.</p>
+                  <p className="text-xs text-orange-600">/10 moy.</p>
                 </div>
               </div>
             </div>
 
             {/* Section 2: Impact bien-être */}
             <div>
-              <div className="flex items-center mb-4">
-                <div className="bg-gradient-to-r from-pink-500 to-red-500 w-1 h-7 rounded-full mr-3"></div>
+              <div className="flex items-center mb-3">
+                <div className="bg-gradient-to-r from-pink-500 to-red-500 w-1 h-6 rounded-full mr-3"></div>
                 <h2 className="text-xl font-bold text-gray-800">
                   💪 Impact sur votre bien-être
                 </h2>
               </div>
 
-              <div className="bg-gradient-to-br from-gray-50 to-white rounded-xl p-4 border border-gray-200">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="text-center p-4 bg-white rounded-lg shadow-sm border border-red-100">
-                    <div className="text-3xl mb-2">🧘</div>
-                    <h3 className="text-base font-semibold text-gray-800 mb-2">
+              <div className="bg-gradient-to-br from-gray-50 to-white rounded-lg p-3 border border-gray-200">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                  <div className="text-center p-3 bg-white rounded-lg shadow-sm border border-red-100">
+                    <div className="text-2xl mb-2">🧘</div>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-1">
                       Réduction stress
                     </h3>
-                    <p className="text-2xl font-bold text-red-600">
+                    <p className="text-xl font-bold text-red-600">
                       {avgStressReduction > 0 ? "-" : ""}
                       {Math.abs(avgStressReduction).toFixed(1)}
                     </p>
-                    <p className="text-sm text-gray-500 mt-1">
+                    <p className="text-xs text-gray-500 mt-1">
                       points en moyenne
                     </p>
                   </div>
 
-                  <div className="text-center p-4 bg-white rounded-lg shadow-sm border border-green-100">
-                    <div className="text-3xl mb-2">⚡</div>
-                    <h3 className="text-base font-semibold text-gray-800 mb-2">
+                  <div className="text-center p-3 bg-white rounded-lg shadow-sm border border-green-100">
+                    <div className="text-2xl mb-2">⚡</div>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-1">
                       Gain d'énergie
                     </h3>
-                    <p className="text-2xl font-bold text-green-600">
+                    <p className="text-xl font-bold text-green-600">
                       {avgEnergyGain > 0 ? "+" : ""}
                       {avgEnergyGain.toFixed(1)}
                     </p>
-                    <p className="text-sm text-gray-500 mt-1">
+                    <p className="text-xs text-gray-500 mt-1">
                       points en moyenne
                     </p>
                   </div>
 
-                  <div className="text-center p-4 bg-white rounded-lg shadow-sm border border-blue-100">
-                    <div className="text-3xl mb-2">😊</div>
-                    <h3 className="text-base font-semibold text-gray-800 mb-2">
+                  <div className="text-center p-3 bg-white rounded-lg shadow-sm border border-blue-100">
+                    <div className="text-2xl mb-2">😊</div>
+                    <h3 className="text-sm font-semibold text-gray-800 mb-1">
                       Amélioration humeur
                     </h3>
-                    <p className="text-2xl font-bold text-blue-600">
+                    <p className="text-xl font-bold text-blue-600">
                       {avgMoodImprovement > 0 ? "+" : ""}
                       {avgMoodImprovement.toFixed(1)}
                     </p>
-                    <p className="text-sm text-gray-500 mt-1">
+                    <p className="text-xs text-gray-500 mt-1">
                       points en moyenne
                     </p>
                   </div>
                 </div>
 
-                <div className="mt-4 p-3 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border border-blue-100">
+                <div className="mt-3 p-3 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border border-blue-100">
                   <div className="flex items-center">
-                    <span className="text-xl mr-3">💡</span>
+                    <span className="text-xl mr-2">💡</span>
                     <div>
-                      <p className="text-sm font-semibold text-blue-800">
+                      <p className="text-xs font-semibold text-blue-800">
                         Motivation moyenne
                       </p>
-                      <p className="text-base font-bold text-blue-900">
+                      <p className="text-sm font-bold text-blue-900">
                         {avgMotivation.toFixed(1)}/10
                       </p>
                     </div>
@@ -452,37 +452,37 @@ const Dashboard = () => {
 
         {/* Card 2: Statistiques hebdomadaires et Activités récentes */}
         {currentCard === 2 && (
-          <div className="w-full bg-white rounded-xl shadow-md p-5">
+          <div className="w-full bg-white rounded-xl shadow-md p-4">
             {/* Section 3: Statistiques hebdomadaires */}
-            <div className="mb-7">
-              <div className="flex items-center mb-4">
-                <div className="bg-gradient-to-r from-green-500 to-teal-500 w-1 h-7 rounded-full mr-3"></div>
+            <div className="mb-6">
+              <div className="flex items-center mb-3">
+                <div className="bg-gradient-to-r from-green-500 to-teal-500 w-1 h-6 rounded-full mr-3"></div>
                 <h2 className="text-xl font-bold text-gray-800">
                   📈 Résumé de la semaine
                 </h2>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <div className="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-xl p-5 border border-blue-200">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-lg p-4 border border-blue-200">
                   <h3 className="text-lg font-bold text-blue-800 mb-3 flex items-center">
                     <span className="mr-2">⏱️</span>
                     Pauses cette semaine
                   </h3>
                   <div className="space-y-2">
                     <div className="flex justify-between items-center">
-                      <span className="text-blue-700">Total des pauses</span>
+                      <span className="text-blue-700 text-sm">Total des pauses</span>
                       <span className="font-bold text-blue-900">
                         {weekTotalPauses}
                       </span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-blue-700">Temps total</span>
+                      <span className="text-blue-700 text-sm">Temps total</span>
                       <span className="font-bold text-blue-900">
                         {weekTotalMinutes} min
                       </span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-blue-700">Moyenne/jour</span>
+                      <span className="text-blue-700 text-sm">Moyenne/jour</span>
                       <span className="font-bold text-blue-900">
                         {Math.round(weekTotalPauses / 7)} pauses
                       </span>
@@ -490,20 +490,20 @@ const Dashboard = () => {
                   </div>
                 </div>
 
-                <div className="bg-gradient-to-br from-green-50 to-emerald-100 rounded-xl p-5 border border-green-200">
+                <div className="bg-gradient-to-br from-green-50 to-emerald-100 rounded-lg p-4 border border-green-200">
                   <h3 className="text-lg font-bold text-green-800 mb-3 flex items-center">
                     <span className="mr-2">🎯</span>
                     Activités cette semaine
                   </h3>
                   <div className="space-y-2">
                     <div className="flex justify-between items-center">
-                      <span className="text-green-700">Total activités</span>
+                      <span className="text-green-700 text-sm">Total activités</span>
                       <span className="font-bold text-green-900">
                         {weekActivities.length}
                       </span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-green-700">Temps total</span>
+                      <span className="text-green-700 text-sm">Temps total</span>
                       <span className="font-bold text-green-900">
                         {weekActivities.reduce(
                           (sum: number, a: ActivitySession) => sum + a.duration,
@@ -513,7 +513,7 @@ const Dashboard = () => {
                       </span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-green-700">
+                      <span className="text-green-700 text-sm">
                         Activités populaires
                       </span>
                       <span className="font-bold text-green-900">
@@ -527,15 +527,15 @@ const Dashboard = () => {
 
             {/* Section 4: Activités récentes */}
             <div>
-              <div className="flex items-center mb-4">
-                <div className="bg-gradient-to-r from-purple-500 to-pink-500 w-1 h-7 rounded-full mr-3"></div>
+              <div className="flex items-center mb-3">
+                <div className="bg-gradient-to-r from-purple-500 to-pink-500 w-1 h-6 rounded-full mr-3"></div>
                 <h2 className="text-xl font-bold text-gray-800">
                   🎯 Activités récentes
                 </h2>
               </div>
 
               {recentActivitySessions.length > 0 ? (
-                <div className="space-y-3">
+                <div className="space-y-2">
                   {recentActivitySessions
                     .slice(0, 2)
                     .map((session: ActivitySession) => {
@@ -545,18 +545,18 @@ const Dashboard = () => {
                       return (
                         <div
                           key={session.id}
-                          className="bg-gradient-to-r from-gray-50 to-white p-4 rounded-xl border border-gray-200 hover:shadow-lg transition-all duration-200"
+                          className="bg-gradient-to-r from-gray-50 to-white p-3 rounded-lg border border-gray-200 hover:shadow-lg transition-all duration-200"
                         >
-                          <div className="flex justify-between items-start mb-3">
+                          <div className="flex justify-between items-start mb-2">
                             <div className="flex-1">
                               <h3 className="font-bold text-base text-gray-800">
                                 {activity?.title || "Activité"}
                               </h3>
-                              <p className="text-gray-600 mb-2 text-sm">
+                              <p className="text-gray-600 mb-1 text-xs line-clamp-2">
                                 {activity?.description ||
                                   "Description non disponible"}
                               </p>
-                              <div className="flex items-center space-x-3 text-sm text-gray-500">
+                              <div className="flex items-center space-x-3 text-xs text-gray-500">
                                 <span>
                                   📅{" "}
                                   {new Date(session.date).toLocaleDateString()}
@@ -569,39 +569,39 @@ const Dashboard = () => {
                               </div>
                             </div>
                             <div className="text-right">
-                              <span className="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">
+                              <span className="bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded-full">
                                 Terminée
                               </span>
                             </div>
                           </div>
 
-                          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-3 pt-3 border-t border-gray-100">
+                          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-2 pt-2 border-t border-gray-100">
                             <div className="text-center">
-                              <p className="text-gray-500 text-sm">Stress</p>
-                              <p className="font-bold text-red-600 text-sm">
+                              <p className="text-gray-500 text-xs">Stress</p>
+                              <p className="font-bold text-red-600 text-xs">
                                 {session.feedback.stressBefore} →{" "}
                                 {session.feedback.stressAfter}
                               </p>
                             </div>
                             <div className="text-center">
-                              <p className="text-gray-500 text-sm">Énergie</p>
-                              <p className="font-bold text-green-600 text-sm">
+                              <p className="text-gray-500 text-xs">Énergie</p>
+                              <p className="font-bold text-green-600 text-xs">
                                 {session.feedback.energyBefore} →{" "}
                                 {session.feedback.energyAfter}
                               </p>
                             </div>
                             <div className="text-center">
-                              <p className="text-gray-500 text-sm">Humeur</p>
-                              <p className="font-bold text-blue-600 text-sm">
+                              <p className="text-gray-500 text-xs">Humeur</p>
+                              <p className="font-bold text-blue-600 text-xs">
                                 {session.feedback.moodBefore} →{" "}
                                 {session.feedback.moodAfter}
                               </p>
                             </div>
                             <div className="text-center">
-                              <p className="text-gray-500 text-sm">
+                              <p className="text-gray-500 text-xs">
                                 Concentration
                               </p>
-                              <p className="font-bold text-orange-600 text-sm">
+                              <p className="font-bold text-orange-600 text-xs">
                                 {session.feedback.concentration}/10
                               </p>
                             </div>
@@ -611,12 +611,12 @@ const Dashboard = () => {
                     })}
                 </div>
               ) : (
-                <div className="text-center py-10 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl border border-gray-200">
-                  <div className="text-4xl mb-3">🎯</div>
+                <div className="text-center py-12 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl border border-gray-200">
+                  <div className="text-5xl mb-3">🎯</div>
                   <h3 className="text-lg font-semibold text-gray-700 mb-2">
                     Aucune activité récente
                   </h3>
-                  <p className="text-gray-500 mb-4 text-base">
+                  <p className="text-gray-500 mb-4">
                     Commencez votre première activité pour voir vos statistiques
                     ici !
                   </p>
