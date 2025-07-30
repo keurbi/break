@@ -58,22 +58,9 @@ const Breaks = () => {
 
     const savedBreaks = localStorage.getItem("breaks");
     const savedOnBreak = localStorage.getItem("onBreak");
-    if (savedBreaks) {
-      try {
-        const parsed = JSON.parse(savedBreaks);
-        if (Array.isArray(parsed)) setBreaks(parsed);
-      } catch (e) {
-        setBreaks([]);
-      }
-    }
+    if (savedBreaks) setBreaks(JSON.parse(savedBreaks));
     if (savedOnBreak) setOnBreak(savedOnBreak === "true");
   }, []);
-
-  // localstorage pour l'UI
-  useEffect(() => {
-    localStorage.setItem("breaks", JSON.stringify(breaks));
-    localStorage.setItem("onBreak", onBreak ? "true" : "false");
-  }, [breaks, onBreak]);
 
   const todayBreaks = breaks.filter(
     (b) => b.userId === userId && b.timeStart && isToday(b.timeStart)
@@ -105,8 +92,11 @@ const Breaks = () => {
       userId: uid,
       timeStart: new Date().toISOString(),
     };
-    setBreaks([newBreak, ...breaks]);
+    const updatedBreaks = [newBreak, ...breaks];
+    setBreaks(updatedBreaks);
     setOnBreak(true);
+    localStorage.setItem("breaks", JSON.stringify(updatedBreaks));
+    localStorage.setItem("onBreak", "true");
   };
 
   const handleEndBreak = async () => {
@@ -116,6 +106,9 @@ const Breaks = () => {
     );
     setBreaks(updatedBreaks);
     setOnBreak(false);
+    localStorage.setItem("breaks", JSON.stringify(updatedBreaks));
+    localStorage.setItem("onBreak", "false");
+
     try {
       const auth = getAuth();
       const user = auth.currentUser;
@@ -146,7 +139,7 @@ const Breaks = () => {
     <Layout>
       <PageContainer>
         <PageTitleCard title="Prendre une pause" />
-        <div className="flex flex-col items-center justify-start min-h-screen py-2 relative">
+        <div className="flex flex-col items-center justify-center min-h-screen py-2 relative">
           <div className="flex flex-row items-start justify-center w-full max-w-6xl mx-auto mt-2 mb-16 gap-12">
             <div className="flex flex-col items-center flex-[1.5] mt-12 justify-center">
               <div

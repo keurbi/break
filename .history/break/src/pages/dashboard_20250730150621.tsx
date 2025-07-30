@@ -305,25 +305,25 @@ const Dashboard = () => {
 
         {/* Card 1: Vue d'ensemble et Impact bien-être */}
         {currentCard === 1 && (
-          <div className="w-full bg-white rounded-xl shadow-md p-5">
+          <div className="w-full bg-white rounded-2xl shadow-lg p-6">
             {/* Section 1: Vue d'ensemble rapide */}
-            <div className="mb-7">
-              <div className="flex items-center mb-4">
-                <div className="bg-gradient-to-r from-blue-500 to-blue-600 w-1 h-7 rounded-full mr-3"></div>
-                <h2 className="text-xl font-bold text-gray-800">
+            <div className="mb-8">
+              <div className="flex items-center mb-5">
+                <div className="bg-gradient-to-r from-blue-500 to-blue-600 w-1 h-8 rounded-full mr-4"></div>
+                <h2 className="text-2xl font-bold text-gray-800">
                   📊 Vue d'ensemble aujourd'hui
                 </h2>
               </div>
 
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-xl border border-blue-200 hover:shadow-md transition-shadow">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+                <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-5 rounded-xl border border-blue-200 hover:shadow-md transition-shadow">
                   <div className="flex items-center justify-between mb-2">
                     <h3 className="text-sm font-semibold text-blue-700">
                       Pauses
                     </h3>
-                    <span className="text-xl">⏱️</span>
+                    <span className="text-2xl">⏱️</span>
                   </div>
-                  <p className="text-2xl font-bold text-blue-800">
+                  <p className="text-3xl font-bold text-blue-800">
                     {totalPauses}
                   </p>
                   <p className="text-sm text-blue-600">
@@ -331,14 +331,14 @@ const Dashboard = () => {
                   </p>
                 </div>
 
-                <div className="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-xl border border-green-200 hover:shadow-md transition-shadow">
+                <div className="bg-gradient-to-br from-green-50 to-green-100 p-5 rounded-xl border border-green-200 hover:shadow-md transition-shadow">
                   <div className="flex items-center justify-between mb-2">
                     <h3 className="text-sm font-semibold text-green-700">
                       Activités
                     </h3>
-                    <span className="text-xl">🎯</span>
+                    <span className="text-2xl">🎯</span>
                   </div>
-                  <p className="text-2xl font-bold text-green-800">
+                  <p className="text-3xl font-bold text-green-800">
                     {todayActivities.length}
                   </p>
                   <p className="text-sm text-green-600">
@@ -350,27 +350,27 @@ const Dashboard = () => {
                   </p>
                 </div>
 
-                <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-xl border border-purple-200 hover:shadow-md transition-shadow">
+                <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-5 rounded-xl border border-purple-200 hover:shadow-md transition-shadow">
                   <div className="flex items-center justify-between mb-2">
                     <h3 className="text-sm font-semibold text-purple-700">
                       Durée moy.
                     </h3>
-                    <span className="text-xl">📏</span>
+                    <span className="text-2xl">📏</span>
                   </div>
-                  <p className="text-2xl font-bold text-purple-800">
+                  <p className="text-3xl font-bold text-purple-800">
                     {avgMinutes}
                   </p>
                   <p className="text-sm text-purple-600">min/pause</p>
                 </div>
 
-                <div className="bg-gradient-to-br from-orange-50 to-orange-100 p-4 rounded-xl border border-orange-200 hover:shadow-md transition-shadow">
+                <div className="bg-gradient-to-br from-orange-50 to-orange-100 p-5 rounded-xl border border-orange-200 hover:shadow-md transition-shadow">
                   <div className="flex items-center justify-between mb-2">
                     <h3 className="text-sm font-semibold text-orange-700">
                       Concentration
                     </h3>
-                    <span className="text-xl">🧠</span>
+                    <span className="text-2xl">🧠</span>
                   </div>
-                  <p className="text-2xl font-bold text-orange-800">
+                  <p className="text-3xl font-bold text-orange-800">
                     {avgConcentration.toFixed(1)}
                   </p>
                   <p className="text-sm text-orange-600">/10 moy.</p>
@@ -380,21 +380,21 @@ const Dashboard = () => {
 
             {/* Section 2: Impact bien-être */}
             <div>
-              <div className="flex items-center mb-4">
-                <div className="bg-gradient-to-r from-pink-500 to-red-500 w-1 h-7 rounded-full mr-3"></div>
-                <h2 className="text-xl font-bold text-gray-800">
+              <div className="flex items-center mb-5">
+                <div className="bg-gradient-to-r from-pink-500 to-red-500 w-1 h-8 rounded-full mr-4"></div>
+                <h2 className="text-2xl font-bold text-gray-800">
                   💪 Impact sur votre bien-être
                 </h2>
               </div>
 
-              <div className="bg-gradient-to-br from-gray-50 to-white rounded-xl p-4 border border-gray-200">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="text-center p-4 bg-white rounded-lg shadow-sm border border-red-100">
-                    <div className="text-3xl mb-2">🧘</div>
-                    <h3 className="text-base font-semibold text-gray-800 mb-2">
+              <div className="bg-gradient-to-br from-gray-50 to-white rounded-xl p-5 border border-gray-200">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                  <div className="text-center p-5 bg-white rounded-lg shadow-sm border border-red-100">
+                    <div className="text-4xl mb-3">🧘</div>
+                    <h3 className="text-lg font-semibold text-gray-800 mb-2">
                       Réduction stress
                     </h3>
-                    <p className="text-2xl font-bold text-red-600">
+                    <p className="text-3xl font-bold text-red-600">
                       {avgStressReduction > 0 ? "-" : ""}
                       {Math.abs(avgStressReduction).toFixed(1)}
                     </p>
@@ -403,12 +403,12 @@ const Dashboard = () => {
                     </p>
                   </div>
 
-                  <div className="text-center p-4 bg-white rounded-lg shadow-sm border border-green-100">
-                    <div className="text-3xl mb-2">⚡</div>
-                    <h3 className="text-base font-semibold text-gray-800 mb-2">
+                  <div className="text-center p-5 bg-white rounded-lg shadow-sm border border-green-100">
+                    <div className="text-4xl mb-3">⚡</div>
+                    <h3 className="text-lg font-semibold text-gray-800 mb-2">
                       Gain d'énergie
                     </h3>
-                    <p className="text-2xl font-bold text-green-600">
+                    <p className="text-3xl font-bold text-green-600">
                       {avgEnergyGain > 0 ? "+" : ""}
                       {avgEnergyGain.toFixed(1)}
                     </p>
@@ -417,12 +417,12 @@ const Dashboard = () => {
                     </p>
                   </div>
 
-                  <div className="text-center p-4 bg-white rounded-lg shadow-sm border border-blue-100">
-                    <div className="text-3xl mb-2">😊</div>
-                    <h3 className="text-base font-semibold text-gray-800 mb-2">
+                  <div className="text-center p-6 bg-white rounded-lg shadow-sm border border-blue-100">
+                    <div className="text-4xl mb-3">😊</div>
+                    <h3 className="text-lg font-semibold text-gray-800 mb-2">
                       Amélioration humeur
                     </h3>
-                    <p className="text-2xl font-bold text-blue-600">
+                    <p className="text-3xl font-bold text-blue-600">
                       {avgMoodImprovement > 0 ? "+" : ""}
                       {avgMoodImprovement.toFixed(1)}
                     </p>
@@ -432,14 +432,14 @@ const Dashboard = () => {
                   </div>
                 </div>
 
-                <div className="mt-4 p-3 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border border-blue-100">
+                <div className="mt-6 p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border border-blue-100">
                   <div className="flex items-center">
-                    <span className="text-xl mr-3">💡</span>
+                    <span className="text-2xl mr-3">💡</span>
                     <div>
                       <p className="text-sm font-semibold text-blue-800">
                         Motivation moyenne
                       </p>
-                      <p className="text-base font-bold text-blue-900">
+                      <p className="text-lg font-bold text-blue-900">
                         {avgMotivation.toFixed(1)}/10
                       </p>
                     </div>
@@ -452,23 +452,23 @@ const Dashboard = () => {
 
         {/* Card 2: Statistiques hebdomadaires et Activités récentes */}
         {currentCard === 2 && (
-          <div className="w-full bg-white rounded-xl shadow-md p-5">
+          <div className="w-full bg-white rounded-2xl shadow-lg p-6">
             {/* Section 3: Statistiques hebdomadaires */}
-            <div className="mb-7">
-              <div className="flex items-center mb-4">
-                <div className="bg-gradient-to-r from-green-500 to-teal-500 w-1 h-7 rounded-full mr-3"></div>
-                <h2 className="text-xl font-bold text-gray-800">
+            <div className="mb-8">
+              <div className="flex items-center mb-6">
+                <div className="bg-gradient-to-r from-green-500 to-teal-500 w-1 h-8 rounded-full mr-4"></div>
+                <h2 className="text-2xl font-bold text-gray-800">
                   📈 Résumé de la semaine
                 </h2>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <div className="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-xl p-5 border border-blue-200">
-                  <h3 className="text-lg font-bold text-blue-800 mb-3 flex items-center">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-xl p-6 border border-blue-200">
+                  <h3 className="text-xl font-bold text-blue-800 mb-4 flex items-center">
                     <span className="mr-2">⏱️</span>
                     Pauses cette semaine
                   </h3>
-                  <div className="space-y-2">
+                  <div className="space-y-3">
                     <div className="flex justify-between items-center">
                       <span className="text-blue-700">Total des pauses</span>
                       <span className="font-bold text-blue-900">
@@ -490,12 +490,12 @@ const Dashboard = () => {
                   </div>
                 </div>
 
-                <div className="bg-gradient-to-br from-green-50 to-emerald-100 rounded-xl p-5 border border-green-200">
-                  <h3 className="text-lg font-bold text-green-800 mb-3 flex items-center">
+                <div className="bg-gradient-to-br from-green-50 to-emerald-100 rounded-xl p-6 border border-green-200">
+                  <h3 className="text-xl font-bold text-green-800 mb-4 flex items-center">
                     <span className="mr-2">🎯</span>
                     Activités cette semaine
                   </h3>
-                  <div className="space-y-2">
+                  <div className="space-y-3">
                     <div className="flex justify-between items-center">
                       <span className="text-green-700">Total activités</span>
                       <span className="font-bold text-green-900">
@@ -527,9 +527,9 @@ const Dashboard = () => {
 
             {/* Section 4: Activités récentes */}
             <div>
-              <div className="flex items-center mb-4">
-                <div className="bg-gradient-to-r from-purple-500 to-pink-500 w-1 h-7 rounded-full mr-3"></div>
-                <h2 className="text-xl font-bold text-gray-800">
+              <div className="flex items-center mb-6">
+                <div className="bg-gradient-to-r from-purple-500 to-pink-500 w-1 h-8 rounded-full mr-4"></div>
+                <h2 className="text-2xl font-bold text-gray-800">
                   🎯 Activités récentes
                 </h2>
               </div>
@@ -545,18 +545,18 @@ const Dashboard = () => {
                       return (
                         <div
                           key={session.id}
-                          className="bg-gradient-to-r from-gray-50 to-white p-4 rounded-xl border border-gray-200 hover:shadow-lg transition-all duration-200"
+                          className="bg-gradient-to-r from-gray-50 to-white p-5 rounded-xl border border-gray-200 hover:shadow-lg transition-all duration-200"
                         >
                           <div className="flex justify-between items-start mb-3">
                             <div className="flex-1">
-                              <h3 className="font-bold text-base text-gray-800">
+                              <h3 className="font-bold text-lg text-gray-800">
                                 {activity?.title || "Activité"}
                               </h3>
                               <p className="text-gray-600 mb-2 text-sm">
                                 {activity?.description ||
                                   "Description non disponible"}
                               </p>
-                              <div className="flex items-center space-x-3 text-sm text-gray-500">
+                              <div className="flex items-center space-x-4 text-sm text-gray-500">
                                 <span>
                                   📅{" "}
                                   {new Date(session.date).toLocaleDateString()}
@@ -577,28 +577,28 @@ const Dashboard = () => {
 
                           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-3 pt-3 border-t border-gray-100">
                             <div className="text-center">
-                              <p className="text-gray-500 text-sm">Stress</p>
+                              <p className="text-gray-500 text-xs">Stress</p>
                               <p className="font-bold text-red-600 text-sm">
                                 {session.feedback.stressBefore} →{" "}
                                 {session.feedback.stressAfter}
                               </p>
                             </div>
                             <div className="text-center">
-                              <p className="text-gray-500 text-sm">Énergie</p>
+                              <p className="text-gray-500 text-xs">Énergie</p>
                               <p className="font-bold text-green-600 text-sm">
                                 {session.feedback.energyBefore} →{" "}
                                 {session.feedback.energyAfter}
                               </p>
                             </div>
                             <div className="text-center">
-                              <p className="text-gray-500 text-sm">Humeur</p>
+                              <p className="text-gray-500 text-xs">Humeur</p>
                               <p className="font-bold text-blue-600 text-sm">
                                 {session.feedback.moodBefore} →{" "}
                                 {session.feedback.moodAfter}
                               </p>
                             </div>
                             <div className="text-center">
-                              <p className="text-gray-500 text-sm">
+                              <p className="text-gray-500 text-xs">
                                 Concentration
                               </p>
                               <p className="font-bold text-orange-600 text-sm">
@@ -611,12 +611,12 @@ const Dashboard = () => {
                     })}
                 </div>
               ) : (
-                <div className="text-center py-10 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl border border-gray-200">
-                  <div className="text-4xl mb-3">🎯</div>
+                <div className="text-center py-12 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl border border-gray-200">
+                  <div className="text-5xl mb-3">🎯</div>
                   <h3 className="text-lg font-semibold text-gray-700 mb-2">
                     Aucune activité récente
                   </h3>
-                  <p className="text-gray-500 mb-4 text-base">
+                  <p className="text-gray-500 mb-4">
                     Commencez votre première activité pour voir vos statistiques
                     ici !
                   </p>
