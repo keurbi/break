@@ -22,7 +22,7 @@ const ActivityCard = ({
   onClick?: (activity: Activity) => void;
 }) => (
   <div
-    className="bg-white rounded-xl shadow-lg p-4 flex flex-col justify-between h-[370px] md:h-[350px] lg:h-[330px] cursor-pointer hover:shadow-lg transition-all duration-300 hover:scale-[1.02]"
+    className="bg-white rounded-xl shadow-lg p-4 flex flex-col justify-between h-[370px] md:h-[350px] lg:h-[330px] cursor-pointer hover:shadow-xl transition-all duration-200 hover:scale-105"
     style={{
       minHeight: 0,
       maxHeight: "100%",

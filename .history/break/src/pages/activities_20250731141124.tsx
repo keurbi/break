@@ -13,20 +13,6 @@ import Notification from "../components/Notification";
 import { saveActivitySession } from "../services/activityService";
 import { useAuth } from "../hooks/useAuth";
 
-// Import du type FeedbackData pour TypeScript
-interface FeedbackData {
-  stressBefore: number;
-  stressAfter: number;
-  energyBefore: number;
-  energyAfter: number;
-  moodBefore: number;
-  moodAfter: number;
-  difficulty: number;
-  motivation: number;
-  pain: number;
-  concentration: number;
-}
-
 type Activity = {
   id: string;
   title: string;
@@ -127,7 +113,8 @@ const ActivitiesPage = () => {
   const hideNotification = () => {
     setNotification((prev) => ({ ...prev, isVisible: false }));
   };
-  const handleSubmitFeedback = async (feedback: FeedbackData) => {
+
+  const handleSubmitFeedback = async (feedback: any) => {
     if (!selectedActivity) return;
 
     try {

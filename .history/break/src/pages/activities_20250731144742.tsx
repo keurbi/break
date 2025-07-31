@@ -1,5 +1,20 @@
-"use client";
-import React, { useState, useEffect } from "react";
+"use clientimport Notification from '../components/Notification';
+import { saveActivitySession } from '../services/activityService';
+import { useAuth } from '../hooks/useAuth';
+
+// Import du type FeedbackData pour TypeScript
+interface FeedbackData {
+    stressBefore: number;
+    stressAfter: number;
+    energyBefore: number;
+    energyAfter: number;
+    moodBefore: number;
+    moodAfter: number;
+    difficulty: number;
+    motivation: number;
+    pain: number;
+    concentration: number;
+}import React, { useState, useEffect } from "react";
 import Layout from "../components/Layout";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 import { app } from "../firebase";
@@ -12,20 +27,6 @@ import PageContainer from "../components/PageContainer";
 import Notification from "../components/Notification";
 import { saveActivitySession } from "../services/activityService";
 import { useAuth } from "../hooks/useAuth";
-
-// Import du type FeedbackData pour TypeScript
-interface FeedbackData {
-  stressBefore: number;
-  stressAfter: number;
-  energyBefore: number;
-  energyAfter: number;
-  moodBefore: number;
-  moodAfter: number;
-  difficulty: number;
-  motivation: number;
-  pain: number;
-  concentration: number;
-}
 
 type Activity = {
   id: string;
@@ -126,8 +127,7 @@ const ActivitiesPage = () => {
 
   const hideNotification = () => {
     setNotification((prev) => ({ ...prev, isVisible: false }));
-  };
-  const handleSubmitFeedback = async (feedback: FeedbackData) => {
+  };    const handleSubmitFeedback = async (feedback: FeedbackData) => {
     if (!selectedActivity) return;
 
     try {
