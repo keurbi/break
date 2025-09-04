@@ -2,7 +2,7 @@ import admin from '../config/firebase';
 import { Request, Response } from 'express';
 
 // CREATE
-export const createUser = async (req: Request, res: Response) => {
+export const createUser = async (req: Request, res: Response): Promise<void> => {
   try {
     const { email, password, firstName, lastName, department, role } = req.body;
     // On force le rôle à 'user', 'manager' ou 'rh'
@@ -13,13 +13,15 @@ export const createUser = async (req: Request, res: Response) => {
       displayName: `${firstName} ${lastName}`,
     });
     await admin.auth().setCustomUserClaims(userRecord.uid, { role: safeRole });
+    const now = admin.firestore.FieldValue.serverTimestamp();
     await admin.firestore().collection('users').doc(userRecord.uid).set({
       email,
       firstName,
       lastName,
       department,
       role: safeRole,
-      createdAt: new Date(),
+      createdAt: now,
+      updatedAt: now,
       lastLogin: null,
       achievements: [],
       customization: {},
@@ -35,7 +37,7 @@ export const createUser = async (req: Request, res: Response) => {
 };
 
 // READ ALL
-export const getUsers = async (_req: Request, res: Response) => {
+export const getUsers = async (_req: Request, res: Response): Promise<void> => {
   try {
     const snapshot = await admin.firestore().collection('users').get();
     const users = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
@@ -46,7 +48,7 @@ export const getUsers = async (_req: Request, res: Response) => {
 };
 
 // READ ONE
-export const getUserById = async (req: Request, res: Response) => {
+export const getUserById = async (req: Request, res: Response): Promise<void> => {
   try {
     const doc = await admin.firestore().collection('users').doc(req.params.id).get();
     if (!doc.exists) {
@@ -60,12 +62,12 @@ export const getUserById = async (req: Request, res: Response) => {
 };
 
 // UPDATE
-export const updateUser = async (req: Request, res: Response) => {
+export const updateUser = async (req: Request, res: Response): Promise<void> => {
   try {
     const { email, firstName, lastName, department, role } = req.body;
     const safeRole = ['user', 'manager', 'rh'].includes(role) ? role : 'user';
     const docRef = admin.firestore().collection('users').doc(req.params.id);
-    await docRef.update({ email, firstName, lastName, department, role: safeRole });
+  await docRef.update({ email, firstName, lastName, department, role: safeRole, updatedAt: admin.firestore.FieldValue.serverTimestamp() });
     // Met à jour le custom claim si le rôle change
     if (role) {
       await admin.auth().setCustomUserClaims(req.params.id, { role: safeRole });
@@ -82,7 +84,7 @@ export const updateUser = async (req: Request, res: Response) => {
 };
 
 // DELETE
-export const deleteUser = async (req: Request, res: Response) => {
+export const deleteUser = async (req: Request, res: Response): Promise<void> => {
   try {
     await admin.firestore().collection('users').doc(req.params.id).delete();
     await admin.auth().deleteUser(req.params.id);

@@ -40,7 +40,12 @@ app.get('/health', (_req, res) => {
   res.status(200).json({ status: 'ok' });
 });
     
-// Global error handler (should be last)
+// 404 JSON
+app.use((req, res) => {
+  res.status(404).json({ error: 'Not Found' });
+});
+
+// Global error handler (last)
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 3100;
