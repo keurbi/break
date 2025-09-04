@@ -2,7 +2,8 @@ import { Request, Response, NextFunction } from 'express';
 
 export const authorizeRoles = (...roles: string[]) => {
   return (req: Request, res: Response, next: NextFunction): void => {
-    if (!req.user || !roles.includes(req.user.role)) {
+  const role = (req as any).userRole || (req.user as any)?.role;
+  if (!role || !roles.includes(role)) {
       res.status(403).json({ error: 'Accès interdit : rôle insuffisant' });
       return;
     }

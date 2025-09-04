@@ -50,10 +50,11 @@ const ActivitiesPage = () => {
     const fetchActivities = async () => {
       setLoading(true);
       try {
-        const res = await fetchWithAuth(API_URL);
+        const res = await fetchWithAuth(`${API_URL}?limit=100`);
         if (res && res.ok) {
           const data = await res.json();
-          setActivities(Array.isArray(data) ? data : []);
+          const items = Array.isArray(data) ? data : Array.isArray(data?.items) ? data.items : [];
+          setActivities(items as Activity[]);
         }
       } catch {
         // ignore
@@ -91,13 +92,13 @@ const ActivitiesPage = () => {
         res = await fetchWithAuth(`${API_URL}/${editingId}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(form),
+          body: JSON.stringify({ ...form, resourceUrl: form.resource }),
         });
       } else {
         res = await fetchWithAuth(API_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(form),
+          body: JSON.stringify({ ...form, resourceUrl: form.resource }),
         });
       }
       if (!res) return;
@@ -114,10 +115,11 @@ const ActivitiesPage = () => {
       setForm(defaultForm);
       setEditingId(null);
       // Refresh activities
-      const activitiesRes = await fetchWithAuth(API_URL);
+      const activitiesRes = await fetchWithAuth(`${API_URL}?limit=100`);
       if (activitiesRes && activitiesRes.ok) {
         const data = await activitiesRes.json();
-        setActivities(Array.isArray(data) ? data : []);
+        const items = Array.isArray(data) ? data : Array.isArray(data?.items) ? data.items : [];
+        setActivities(items as Activity[]);
       }
     } catch (err: any) {
       setError('Erreur réseau ou serveur.');
