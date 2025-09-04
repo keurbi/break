@@ -65,17 +65,38 @@ export const getUserById = async (req: Request, res: Response): Promise<void> =>
 export const updateUser = async (req: Request, res: Response): Promise<void> => {
   try {
     const { email, firstName, lastName, department, role } = req.body;
-    const safeRole = ['user', 'manager', 'rh'].includes(role) ? role : 'user';
     const docRef = admin.firestore().collection('users').doc(req.params.id);
-  await docRef.update({ email, firstName, lastName, department, role: safeRole, updatedAt: admin.firestore.FieldValue.serverTimestamp() });
-    // Met à jour le custom claim si le rôle change
-    if (role) {
-      await admin.auth().setCustomUserClaims(req.params.id, { role: safeRole });
+
+    const updates: Record<string, any> = { updatedAt: admin.firestore.FieldValue.serverTimestamp() };
+    if (typeof email !== 'undefined') updates.email = email;
+    if (typeof firstName !== 'undefined') updates.firstName = firstName;
+    if (typeof lastName !== 'undefined') updates.lastName = lastName;
+    if (typeof department !== 'undefined') updates.department = department;
+
+    // Role: seulement si fourni et valide
+    if (typeof role !== 'undefined') {
+      if (['user', 'manager', 'rh'].includes(role)) {
+        updates.role = role;
+        await admin.auth().setCustomUserClaims(req.params.id, { role });
+      } else {
+        res.status(400).json({ error: 'Rôle invalide' });
+        return;
+      }
     }
-    await admin.auth().updateUser(req.params.id, {
-      email,
-      displayName: `${firstName} ${lastName}`,
-    });
+
+    await docRef.update(updates);
+
+    // Mise à jour Firebase Auth seulement pour les champs fournis
+    const authUpdates: Record<string, any> = {};
+    if (typeof email !== 'undefined') authUpdates.email = email;
+    if (typeof firstName !== 'undefined' || typeof lastName !== 'undefined') {
+      const f = typeof firstName !== 'undefined' ? firstName : '';
+      const l = typeof lastName !== 'undefined' ? lastName : '';
+      authUpdates.displayName = `${f} ${l}`.trim();
+    }
+    if (Object.keys(authUpdates).length > 0) {
+      await admin.auth().updateUser(req.params.id, authUpdates);
+    }
     const updatedDoc = await docRef.get();
     res.json({ id: updatedDoc.id, ...updatedDoc.data() });
   } catch (error) {
