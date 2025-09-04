@@ -23,7 +23,12 @@ export const getAllActivities = async (req: Request, res: Response): Promise<voi
     }
 
     const snapshot = await query.get();
-    const activities = snapshot.docs.map((doc) => ({ id: doc.id, ...(doc.data() as any) }));
+    const activities = snapshot.docs.map((doc) => {
+      const data = doc.data() as any;
+      const { resourceUrl, ...rest } = data || {};
+      const resource = rest?.resource ?? resourceUrl ?? null;
+      return { id: doc.id, ...rest, resource };
+    });
     const nextCursor = snapshot.docs.length === limit ? snapshot.docs[snapshot.docs.length - 1].id : null;
 
   res.json({ items: activities, nextCursor });
@@ -39,7 +44,10 @@ export const getActivityById = async (req: Request, res: Response): Promise<void
       res.status(404).json({ error: 'Activité non trouvée.' });
       return;
     }
-    res.json({ id: doc.id, ...(doc.data() as any) });
+    const data = doc.data() as any;
+    const { resourceUrl, ...rest } = data || {};
+    const resource = rest?.resource ?? resourceUrl ?? null;
+    res.json({ id: doc.id, ...rest, resource });
   } catch (err) {
     res.status(500).json({ error: 'Erreur serveur.' });
   }
@@ -56,7 +64,7 @@ export const createActivity = async (req: Request, res: Response): Promise<void>
       subType: req.body.subType ?? null,
       duration: req.body.duration ?? null,
       difficulty,
-      resourceUrl: req.body.resourceUrl ?? req.body.resource ?? null,
+      resource: req.body.resource ?? req.body.resourceUrl ?? null,
       benefits: Array.isArray(req.body.benefits) ? req.body.benefits : [],
       tips: Array.isArray(req.body.tips) ? req.body.tips : [],
       tags: Array.isArray(req.body.tags) ? req.body.tags : [],
@@ -80,9 +88,9 @@ export const updateActivity = async (req: Request, res: Response): Promise<void>
     for (const [k, v] of Object.entries(req.body)) {
       if (!disallowed.includes(k)) updates[k] = v;
     }
-    if (updates.resource) {
-      updates.resourceUrl = updates.resource;
-      delete updates.resource;
+    if (typeof updates.resourceUrl !== 'undefined' && typeof updates.resource === 'undefined') {
+      updates.resource = updates.resourceUrl;
+      delete (updates as any).resourceUrl;
     }
     if (typeof updates.difficulty !== 'undefined') {
       updates.difficulty = typeof updates.difficulty === 'number' ? updates.difficulty : updates.difficulty;
