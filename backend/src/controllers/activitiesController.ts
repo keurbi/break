@@ -4,24 +4,40 @@ import admin from '../config/firebase';
 const db = admin.firestore();
 const COLLECTION = 'activities';
 
-export const getAllActivities = async (req: Request, res: Response) => {
+export const getAllActivities = async (req: Request, res: Response): Promise<void> => {
   try {
-    const snapshot = await db.collection(COLLECTION).get();
-    const activities = snapshot.docs.map(doc => ({
-      id: doc.id,
-      ...(doc.data() as any),
-    }));
-    res.json(activities);
+    const limit = Math.min(Number(req.query.limit) || 20, 100);
+    const cursor = (req.query.cursor as string) || undefined;
+
+    let query = db
+      .collection(COLLECTION)
+      .where('deletedAt', '==', null)
+      .orderBy('createdAt', 'desc')
+      .limit(limit);
+
+    if (cursor) {
+      const cursorDoc = await db.collection(COLLECTION).doc(cursor).get();
+      if (cursorDoc.exists) {
+        query = query.startAfter(cursorDoc);
+      }
+    }
+
+    const snapshot = await query.get();
+    const activities = snapshot.docs.map((doc) => ({ id: doc.id, ...(doc.data() as any) }));
+    const nextCursor = snapshot.docs.length === limit ? snapshot.docs[snapshot.docs.length - 1].id : null;
+
+  res.json({ items: activities, nextCursor });
   } catch (err) {
-    res.status(500).json({ error: 'Erreur serveur.' });
+  res.status(500).json({ error: 'Erreur serveur.' });
   }
 };
 
-export const getActivityById = async (req: Request, res: Response) => {
+export const getActivityById = async (req: Request, res: Response): Promise<void> => {
   try {
-    const doc = await db.collection(COLLECTION).doc(req.params.id).get();
-    if (!doc.exists) {
-      return res.status(404).json({ error: 'Activité non trouvée.' });
+  const doc = await db.collection(COLLECTION).doc(req.params.id).get();
+    if (!doc.exists || (doc.data() as any)?.deletedAt) {
+      res.status(404).json({ error: 'Activité non trouvée.' });
+      return;
     }
     res.json({ id: doc.id, ...(doc.data() as any) });
   } catch (err) {
@@ -29,31 +45,65 @@ export const getActivityById = async (req: Request, res: Response) => {
   }
 };
 
-export const createActivity = async (req: Request, res: Response) => {
+export const createActivity = async (req: Request, res: Response): Promise<void> => {
   try {
-    const docRef = await db.collection(COLLECTION).add(req.body);
-    res.status(201).json({ id: docRef.id });
+    const now = admin.firestore.FieldValue.serverTimestamp();
+    const difficulty = typeof req.body.difficulty === 'number' ? req.body.difficulty : req.body.difficulty ?? null;
+    const payload = {
+      title: req.body.title,
+      description: req.body.description,
+      type: req.body.type ?? null,
+      subType: req.body.subType ?? null,
+      duration: req.body.duration ?? null,
+      difficulty,
+      resourceUrl: req.body.resourceUrl ?? req.body.resource ?? null,
+      benefits: Array.isArray(req.body.benefits) ? req.body.benefits : [],
+      tips: Array.isArray(req.body.tips) ? req.body.tips : [],
+      tags: Array.isArray(req.body.tags) ? req.body.tags : [],
+      createdAt: now,
+      updatedAt: now,
+      deletedAt: null,
+    };
+    const docRef = await db.collection(COLLECTION).add(payload);
+  res.status(201).json({ id: docRef.id });
   } catch (err) {
-    res.status(400).json({ error: 'Erreur lors de la création.' });
+  res.status(400).json({ error: 'Erreur lors de la création.' });
   }
 };
 
-export const updateActivity = async (req: Request, res: Response) => {
+export const updateActivity = async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
-    await db.collection(COLLECTION).doc(id).update(req.body);
-    res.json({ success: true });
+    // prevent updating system fields
+    const disallowed = ['id', 'createdAt', 'deletedAt'];
+    const updates: Record<string, any> = {};
+    for (const [k, v] of Object.entries(req.body)) {
+      if (!disallowed.includes(k)) updates[k] = v;
+    }
+    if (updates.resource) {
+      updates.resourceUrl = updates.resource;
+      delete updates.resource;
+    }
+    if (typeof updates.difficulty !== 'undefined') {
+      updates.difficulty = typeof updates.difficulty === 'number' ? updates.difficulty : updates.difficulty;
+    }
+    updates.updatedAt = admin.firestore.FieldValue.serverTimestamp();
+    await db.collection(COLLECTION).doc(id).update(updates);
+  res.json({ success: true });
   } catch (err) {
-    res.status(400).json({ error: 'Erreur lors de la modification.' });
+  res.status(400).json({ error: 'Erreur lors de la modification.' });
   }
 };
 
-export const deleteActivity = async (req: Request, res: Response) => {
+export const deleteActivity = async (req: Request, res: Response): Promise<void> => {
   try {
     const { id } = req.params;
-    await db.collection(COLLECTION).doc(id).delete();
-    res.json({ success: true });
+    await db.collection(COLLECTION).doc(id).update({
+      deletedAt: admin.firestore.FieldValue.serverTimestamp(),
+      updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+    });
+  res.status(204).send();
   } catch (err) {
-    res.status(400).json({ error: 'Erreur lors de la suppression.' });
+  res.status(400).json({ error: 'Erreur lors de la suppression.' });
   }
 };

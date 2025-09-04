@@ -5,14 +5,14 @@ declare global {
   namespace Express {
     interface Request {
       user?: any;
+      userRole?: string;
     }
   }
 }
 
 export const authenticateFirebase = async (req: Request, res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization;
-  console.log('Authorization header:', authHeader);
-  if (!authHeader) {
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
     res.status(401).json({ error: 'Token manquant' });
     return;
   }
@@ -21,6 +21,9 @@ export const authenticateFirebase = async (req: Request, res: Response, next: Ne
   try {
     const decodedToken = await admin.auth().verifyIdToken(token);
     req.user = decodedToken;
+    // Prefer a custom claim named "role" if present, else default to 'user'
+    const role = (decodedToken as any)?.role ?? 'user';
+    req.userRole = typeof role === 'string' ? role : 'user';
     next();
   } catch (error) {
     console.error('Erreur de vérification Firebase:', error);
