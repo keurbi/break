@@ -109,7 +109,7 @@ const ActivityFeedbackModal: React.FC<ActivityFeedbackModalProps> = ({
   const renderStep1 = () => (
     <div>
       <h3 className="text-lg font-semibold text-gray-800 mb-4">
-        Comment vous sentiez-vous AVANT l'activité ?
+  Comment vous sentiez-vous AVANT l’activité ?
       </h3>
       {renderSlider("Niveau de stress", "stressBefore", 1, 10, "😰")}
       {renderSlider("Niveau d'énergie", "energyBefore", 1, 10, "⚡")}
@@ -120,7 +120,7 @@ const ActivityFeedbackModal: React.FC<ActivityFeedbackModalProps> = ({
   const renderStep2 = () => (
     <div>
       <h3 className="text-lg font-semibold text-gray-800 mb-4">
-        Comment vous sentez-vous APRÈS l'activité ?
+  Comment vous sentez-vous APRÈS l’activité ?
       </h3>
       {renderSlider("Niveau de stress", "stressAfter", 1, 10, "😰")}
       {renderSlider("Niveau d'énergie", "energyAfter", 1, 10, "⚡")}
@@ -131,7 +131,7 @@ const ActivityFeedbackModal: React.FC<ActivityFeedbackModalProps> = ({
   const renderStep3 = () => (
     <div>
       <h3 className="text-lg font-semibold text-gray-800 mb-4">
-        Évaluation de l'activité
+  Évaluation de l’activité
       </h3>
       {renderSlider("Difficulté perçue", "difficulty", 1, 5, "📊")}
       {renderSlider("Motivation ressentie", "motivation", 1, 10, "🔥")}
@@ -148,7 +148,7 @@ const ActivityFeedbackModal: React.FC<ActivityFeedbackModalProps> = ({
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-xl font-bold text-gray-800">
-                Feedback de l'activité
+                Feedback de l’activité
               </h2>
               <p className="text-gray-600 text-sm">
                 {activity.title} • {duration} minutes

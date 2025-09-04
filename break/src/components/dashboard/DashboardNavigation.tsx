@@ -20,7 +20,7 @@ const DashboardNavigation: React.FC<DashboardNavigationProps> = ({
               : "text-gray-600 hover:bg-gray-100"
           }`}
         >
-          📊 Vue d'ensemble
+          📊 Vue d’ensemble
         </button>
         <button
           onClick={() => onCardChange(2)}

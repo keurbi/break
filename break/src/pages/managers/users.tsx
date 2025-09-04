@@ -51,7 +51,7 @@ const UsersPage = () => {
 			return;
 		}
 
-		if (!ROLES.includes(form.role as any)) {
+		if (!ROLES.includes(form.role as typeof ROLES[number])) {
 			setGeneralError('Rôle invalide.');
 			return;
 		}
@@ -100,7 +100,7 @@ const UsersPage = () => {
 			if (!usersRes) return;
 			const data = await usersRes.json();
 			setUsers(Array.isArray(data) ? data : []);
-		} catch (err: any) {
+		} catch {
 			setGeneralError('Erreur réseau ou serveur.');
 		}
 	};
@@ -210,7 +210,7 @@ const UsersPage = () => {
 							type='submit'
 							className='bg-[#7346FF] hover:bg-[#5a36cc] text-white font-bold px-6 py-3 rounded-lg shadow transition'
 						>
-							{editingId ? "Mettre à jour l'utilisateur" : "Créer l'utilisateur"}
+							{editingId ? "Mettre à jour l’utilisateur" : "Créer l’utilisateur"}
 						</button>
 						{editingId && (
 							<button

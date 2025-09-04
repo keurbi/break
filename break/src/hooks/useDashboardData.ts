@@ -28,7 +28,7 @@ export const useDashboardData = () => {
           try {
             const parsed = JSON.parse(savedBreaks);
             if (Array.isArray(parsed)) setBreaks(parsed);
-          } catch (error) {
+          } catch {
             setBreaks([]);
           }
         }
@@ -37,12 +37,12 @@ export const useDashboardData = () => {
         const db = getFirestore(app);
         const activitiesSnapshot = await getDocs(collection(db, "activities"));
         const fetchedActivities: Activity[] = [];
-        activitiesSnapshot.forEach((doc) => {
+    activitiesSnapshot.forEach((doc) => {
           const data = doc.data();
           fetchedActivities.push({
             id: doc.id,
             title: data.title || "",
-            type: data.type || "",
+      type: data.type || "",
             subType: data.subType || "",
             duration: data.duration || 0,
             difficulty: data.difficulty || 1,
@@ -58,8 +58,8 @@ export const useDashboardData = () => {
         // Fetch real activity sessions from Firestore
         const realSessions = await getActivitySessions();
         setRecentActivitySessions(realSessions);
-      } catch (error) {
-        console.error("Erreur lors de la récupération des données:", error);
+      } catch {
+        // ignore
       } finally {
         setLoading(false);
       }

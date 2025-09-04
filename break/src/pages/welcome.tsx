@@ -21,7 +21,7 @@ const WelcomePage = () => {
               Hier, vous avez pris <strong className="underline">{breaksTaken}</strong> pauses totalisant <strong className="underline">{breakMinutes} minutes</strong>.
             </p>
             <p className="text-lg mt-2 text-gray-700">
-              🔥 Vous êtes sur une série de bien-être de <strong className="underline">{wellnessStreak} jours</strong> !
+              🔥 Vous êtes sur une série de bien‑être de <strong className="underline">{wellnessStreak} jours</strong> !
             </p>
             <p className="text-lg mt-2 text-gray-700">
               🏆 Plus que <strong className="underline">{sessionsForAchievement} sessions</strong> pour atteindre ‘Maître de la pleine conscience’ !
@@ -49,7 +49,7 @@ const WelcomePage = () => {
                 Votre score de stress actuel est : <strong className="underline">{stressScore}</strong>
               </p>
               <div className="w-1/2 h-24 bg-gray-200 rounded-lg flex items-center justify-center">
-                <span className="text-gray-500">Graphique de l'activité de la semaine passée</span>
+                <span className="text-gray-500">Graphique de l’activité de la semaine passée</span>
               </div>
             </div>
           </div>

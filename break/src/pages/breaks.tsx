@@ -62,14 +62,14 @@ const Breaks = () => {
       try {
         const parsed = JSON.parse(savedBreaks);
         if (Array.isArray(parsed)) setBreaks(parsed);
-      } catch (e) {
+  } catch {
         setBreaks([]);
       }
     }
     if (savedOnBreak) setOnBreak(savedOnBreak === "true");
   }, []);
 
-  // localstorage pour l'UI
+  // localstorage pour l’UI
   useEffect(() => {
     localStorage.setItem("breaks", JSON.stringify(breaks));
     localStorage.setItem("onBreak", onBreak ? "true" : "false");
@@ -139,7 +139,7 @@ const Breaks = () => {
           userId: `/users/${user.uid}`,
         });
       }
-    } catch (err) {}
+  } catch {}
   };
 
   return (
@@ -252,7 +252,7 @@ const Breaks = () => {
                         colSpan={3}
                         className="p-5 text-center text-gray-400 text-2xl"
                       >
-                        Aucune pause prise aujourd'hui.
+                        Aucune pause prise aujourd’hui.
                       </td>
                     </tr>
                   )}

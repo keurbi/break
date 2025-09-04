@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 import '../firebase';
+import Image from 'next/image';
 
 type LoginFormInputs = {
   username: string;
@@ -51,8 +52,9 @@ const LoginPage = () => {
       localStorage.setItem('token', token);
       localStorage.setItem('role', role);
       router.push('/welcome');
-    } catch (error: any) {
-      setLoginError(error.message || 'Erreur de connexion');
+    } catch (error: unknown) {
+      const message = (error as { message?: string })?.message || 'Erreur de connexion';
+      setLoginError(message);
     } finally {
       setLoading(false);
     }
@@ -70,8 +72,9 @@ const LoginPage = () => {
       const auth = getAuth();
       await sendPasswordResetEmail(auth, resetEmail);
       setResetMessage('Un email de réinitialisation a été envoyé.');
-    } catch (err: any) {
-      setResetMessage(err.message || 'Erreur lors de la demande.');
+    } catch (err: unknown) {
+      const message = (err as { message?: string })?.message || 'Erreur lors de la demande.';
+      setResetMessage(message);
     } finally {
       setResetLoading(false);
     }
@@ -80,10 +83,13 @@ const LoginPage = () => {
   return (
     <div className='flex h-screen'>
       <div className='relative flex-1'>
-        <img
+        <Image
           src='/cielpixel.webp'
           alt='Background'
-          className='w-full h-full object-cover'
+          fill
+          sizes='100vw'
+          priority
+          className='object-cover'
         />
         <div className='absolute top-0 left-0 p-4'>
           <h1 className='text-white text-6xl font-bold font-pixelify'>BREAK</h1>
