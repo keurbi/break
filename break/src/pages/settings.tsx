@@ -5,18 +5,18 @@ import PageTitleCard from '../components/PageTitleCard';
 import PageContainer from '../components/PageContainer';
 
 const sections = [
-  { key: 'user', label: "Informations de l'utilisateur" },
+  { key: 'user', label: "Informations de l’utilisateur" },
   { key: 'config', label: 'Configuration' },
   { key: 'notif', label: 'Notifications' },
   { key: 'privacy', label: 'Confidentialité' },
 ];
 
 const SettingsPage = () => {
-  const [userInfo, setUserInfo] = useState({
+  const userInfo = {
     firstName: 'John',
     lastName: 'Doe',
     email: 'john.doe@example.com',
-  });
+  };
 
   const [settings, setSettings] = useState({
     theme: 'Light',
@@ -190,7 +190,7 @@ const SettingsPage = () => {
                     onChange={handleNotificationChange}
                     className="mr-2 h-5 w-5"
                   />
-                  <label htmlFor="activitySummary" className="text-lg">Résumé d'activité hebdomadaire</label>
+                    <label htmlFor="activitySummary" className="text-lg">Résumé d&apos;activité hebdomadaire</label>
                 </div>
                 <div className="flex items-center">
                   <input

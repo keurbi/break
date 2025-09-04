@@ -11,8 +11,8 @@ const TodayOverview: React.FC<TodayOverviewProps> = ({ stats }) => {
     <div className="mb-7">
       <div className="flex items-center mb-4">
         <div className="bg-gradient-to-r from-blue-500 to-blue-600 w-1 h-7 rounded-full mr-3"></div>
-        <h2 className="text-xl font-bold text-gray-800">
-          📊 Vue d'ensemble aujourd'hui
+            <h2 className="text-xl font-bold text-gray-800">
+              📊 Vue d’ensemble aujourd’hui
         </h2>
       </div>
 

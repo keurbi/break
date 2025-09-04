@@ -121,8 +121,8 @@ const ActivitiesPage = () => {
         const items = Array.isArray(data) ? data : Array.isArray(data?.items) ? data.items : [];
         setActivities(items as Activity[]);
       }
-    } catch (err: any) {
-      setError('Erreur réseau ou serveur.');
+  } catch {
+  setError('Erreur réseau ou serveur.');
     }
   };
 
@@ -187,7 +187,7 @@ const ActivitiesPage = () => {
               <input
                 name="subType"
                 type="text"
-                placeholder="Sous-type"
+                placeholder="Sous‑type"
                 value={form.subType}
                 onChange={handleChange}
                 className="w-full px-6 py-4 border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-primary text-[#7346FF] font-bold text-lg"
