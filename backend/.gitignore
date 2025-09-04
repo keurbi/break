@@ -1,4 +1,18 @@
-# Dependencies
+# Node and build
+node_modules/
+dist/
+
+# Env files
+.env
+.env.*
+
+# Firebase service account (keep locally only)
+src/config/serviceAccountKey.json
+
+# Logs
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*# Dependencies
 node_modules/
 */node_modules/
 
