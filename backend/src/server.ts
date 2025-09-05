@@ -7,6 +7,8 @@ import compression from 'compression';
 import rateLimit from 'express-rate-limit';
 import userRoutes from './routes/user.routes';
 import activityRoutes from './routes/activity.routes';
+import paymentRoutes from './routes/payments.routes';
+import { stripeWebhookHandler } from './controllers/paymentsController';
 import { errorHandler } from './middlewares/errorHandler';
 
 dotenv.config();
@@ -22,6 +24,9 @@ app.use(helmet());
 app.use(compression());
 app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'));
 
+// Stripe webhook must be declared BEFORE json parser, using express.raw
+app.post('/api/payments/webhook', express.raw({ type: 'application/json' }), stripeWebhookHandler);
+
 const bodyLimit = process.env.BODY_LIMIT ? Number(process.env.BODY_LIMIT) : 1024 * 100; // 100kb default
 app.use(express.json({ limit: bodyLimit }));
 app.use(express.urlencoded({ extended: true, limit: bodyLimit }));
@@ -35,6 +40,7 @@ const limiter = rateLimit({
 app.use(limiter);
 app.use('/api/users', userRoutes);
 app.use('/api/activities', activityRoutes);
+app.use('/api/payments', paymentRoutes);
 
 app.get('/health', (_req, res) => {
   res.status(200).json({ status: 'ok' });

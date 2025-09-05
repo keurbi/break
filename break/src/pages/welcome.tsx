@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Layout from '../components/Layout';
+import { createCheckoutAndRedirect } from '../services/paymentsService';
+import DonationModal from '../components/DonationModal';
 
 const WelcomePage = () => {
   const firstName = "John";
@@ -10,6 +12,18 @@ const WelcomePage = () => {
   const nextBreakTime = "10:30 AM";
   const recommendedActivity = "Exercice de respiration de 5 minutes";
   const stressScore = 3;
+
+  const [donateOpen, setDonateOpen] = useState<boolean>(false);
+
+  const startDonation = async (amountCents: number) => {
+    try {
+      await createCheckoutAndRedirect(amountCents);
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.error(e);
+      alert('Erreur lors de la redirection vers Stripe');
+    }
+  };
 
   return (
     <Layout>
@@ -53,8 +67,24 @@ const WelcomePage = () => {
               </div>
             </div>
           </div>
+      {/* Donate Card */}
+          <div className="flex-2 bg-white shadow-md rounded-lg p-6">
+            <div className="flex items-center justify-between">
+              <h2 className="text-2xl font-extrabold text-gray-800">Soutenir Break</h2>
+              <button
+                type="button"
+                onClick={() => setDonateOpen(true)}
+                className="bg-[#7346FF] hover:bg-[#5a36cc] text-white font-bold px-4 py-2 rounded-lg shadow"
+              >
+                Faire un don
+              </button>
+            </div>
+            <p className="text-gray-600 mt-2">Vos dons aident à développer de nouvelles activités et fonctionnalités.</p>
+          </div>
         </div>
       </div>
+
+    <DonationModal open={donateOpen} onClose={() => setDonateOpen(false)} onDonate={startDonation} />
     </Layout>
   );
 };
