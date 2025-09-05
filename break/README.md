@@ -1,6 +1,9 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
+## Getting Started
 
 First, run the development server:
 
@@ -21,6 +24,36 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
 ## Learn More
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Environment setup
+
+Create `break/.env.local` with:
+
+- NEXT_PUBLIC_FIREBASE_API_KEY
+- NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
+- NEXT_PUBLIC_FIREBASE_PROJECT_ID
+- NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
+- NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
+- NEXT_PUBLIC_FIREBASE_APP_ID
+- NEXT_PUBLIC_API_BASE (optional, default http://localhost:3100)
+
+Create `backend/.env` with:
+
+- NODE_ENV=development
+- PORT=3100
+- CORS_ORIGIN=http://localhost:3000
+- RATE_LIMIT_MAX=300
+- BODY_LIMIT=102400
+- FIREBASE_PROJECT_ID
+- FIREBASE_CLIENT_EMAIL
+- FIREBASE_PRIVATE_KEY (PowerShell: wrap in double quotes and keep \n escapes)
+
+Local run
+
+- Backend: from `backend/` run `npm install`, `npm run build`, `npm run start`.
+- Frontend: from `break/` run `npm install`, `npm run dev`.
 
 To learn more about Next.js, take a look at the following resources:
 

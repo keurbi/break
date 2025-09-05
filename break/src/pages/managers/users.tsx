@@ -30,7 +30,8 @@ const UsersPage = () => {
 	const [generalError, setGeneralError] = useState<string | null>(null);
 
 	useEffect(() => {
-		fetchWithAuth('http://localhost:3100/api/users')
+		const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:3100';
+		fetchWithAuth(`${API_BASE}/api/users`)
 			.then((res) => res && res.json())
 			.then((data) => (Array.isArray(data) ? setUsers(data) : setUsers([])));
 	}, []);
@@ -58,8 +59,9 @@ const UsersPage = () => {
 
 		try {
 			let res;
+			const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:3100';
 			if (editingId) {
-				res = await fetchWithAuth(`http://localhost:3100/api/users/${editingId}`, {
+				res = await fetchWithAuth(`${API_BASE}/api/users/${editingId}`, {
 					method: 'PUT',
 					headers: {
 						'Content-Type': 'application/json',
@@ -73,7 +75,7 @@ const UsersPage = () => {
 					}),
 				});
 			} else {
-				res = await fetchWithAuth('http://localhost:3100/api/users', {
+				res = await fetchWithAuth(`${API_BASE}/api/users`, {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
@@ -96,7 +98,7 @@ const UsersPage = () => {
 				role: 'user',
 			});
 			setEditingId(null);
-			const usersRes = await fetchWithAuth('http://localhost:3100/api/users');
+			const usersRes = await fetchWithAuth(`${API_BASE}/api/users`);
 			if (!usersRes) return;
 			const data = await usersRes.json();
 			setUsers(Array.isArray(data) ? data : []);
@@ -120,7 +122,8 @@ const UsersPage = () => {
 	};
 
 	const handleDelete = async (id: string) => {
-		const res = await fetchWithAuth(`http://localhost:3100/api/users/${id}`, {
+		const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:3100';
+		const res = await fetchWithAuth(`${API_BASE}/api/users/${id}`, {
 			method: 'DELETE',
 		});
 		if (!res) return;

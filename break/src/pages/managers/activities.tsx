@@ -44,7 +44,8 @@ const ActivitiesPage = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [page, setPage] = useState<number>(1);
 
-  const API_URL = 'http://localhost:3100/api/activities';
+  const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:3100';
+  const API_URL = `${API_BASE}/api/activities`;
 
   useEffect(() => {
     const fetchActivities = async () => {
@@ -62,7 +63,7 @@ const ActivitiesPage = () => {
       setLoading(false);
     };
     fetchActivities();
-  }, []);
+  }, [API_URL]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>

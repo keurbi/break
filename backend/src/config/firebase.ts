@@ -1,5 +1,9 @@
 // backend/src/config/firebase.ts
 import admin from 'firebase-admin';
+import dotenv from 'dotenv';
+
+// Load .env here so it's available even if the importer hasn't called dotenv yet
+dotenv.config();
 
 const initializeFirebase = () => {
   if (admin.apps.length > 0) return;
