@@ -13,7 +13,7 @@ export async function createCheckoutAndRedirect(amountCents: number) {
     try {
       const data = await res.json();
       throw new Error(data?.error || 'Erreur de paiement');
-    } catch (e) {
+    } catch {
       throw new Error('Erreur de paiement');
     }
   }
