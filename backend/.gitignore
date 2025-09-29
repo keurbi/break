@@ -8,6 +8,7 @@ dist/
 
 # Firebase service account (keep locally only)
 src/config/serviceAccountKey.json
+src/config/serviceAccountKey.b64
 
 # Logs
 npm-debug.log*

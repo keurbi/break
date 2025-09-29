@@ -62,7 +62,7 @@ const Breaks = () => {
       try {
         const parsed = JSON.parse(savedBreaks);
         if (Array.isArray(parsed)) setBreaks(parsed);
-  } catch {
+      } catch {
         setBreaks([]);
       }
     }
@@ -139,7 +139,7 @@ const Breaks = () => {
           userId: `/users/${user.uid}`,
         });
       }
-  } catch {}
+    } catch {}
   };
 
   return (
@@ -167,16 +167,32 @@ const Breaks = () => {
               {!onBreak ? (
                 <button
                   onClick={handleStartBreak}
-                  className="bg-[#7346FF] text-white px-12 py-6 rounded-lg font-bold text-2xl hover:bg-[#5a36cc] transition mb-10 w-full"
+                  className="relative bg-[#7346FF] text-white px-12 py-6 rounded-lg font-bold text-2xl w-full mb-10
+                  transition-all duration-200 ease-out
+                  hover:bg-[#5a36cc] hover:shadow-lg hover:-translate-y-0.5
+                  active:translate-y-0 active:shadow-md
+                  focus:outline-none focus-visible:ring-4 focus-visible:ring-[#7346FF]/40
+                  group"
+                  aria-label="Commencer une pause"
                 >
-                  Commencer une pause
+                  <span className="pointer-events-none select-none group-active:scale-95 transition-transform">
+                    Commencer une pause
+                  </span>
                 </button>
               ) : (
                 <button
                   onClick={handleEndBreak}
-                  className="bg-[#CFAAFF] text-white px-12 py-6 rounded-lg font-bold text-2xl hover:bg-[#7346FF] transition mb-10 w-full"
+                  className="relative bg-[#CFAAFF] text-white px-12 py-6 rounded-lg font-bold text-2xl w-full mb-10
+                  transition-all duration-200 ease-out
+                  hover:bg-[#7346FF] hover:shadow-lg hover:-translate-y-0.5
+                  active:translate-y-0 active:shadow-md
+                  focus:outline-none focus-visible:ring-4 focus-visible:ring-[#7346FF]/40
+                  group"
+                  aria-label="Terminer la pause"
                 >
-                  Terminer la pause
+                  <span className="pointer-events-none select-none group-active:scale-95 transition-transform">
+                    Terminer la pause
+                  </span>
                 </button>
               )}
             </div>

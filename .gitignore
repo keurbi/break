@@ -1,0 +1,16 @@
+# OS
+.DS_Store
+
+# Editeur / historique local
+.history/
+.vscode/
+
+# Dépendances et builds
+node_modules/
+dist/
+coverage/
+.next/
+.swc/
+
+# Logs
+*.log
