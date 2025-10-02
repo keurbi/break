@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import Link from 'next/link';
 
 const MobileNav: React.FC = () => {
@@ -15,8 +16,8 @@ const MobileNav: React.FC = () => {
     }
   }, []);
 
-  if (!mounted) return null;
-  return (
+  if (!mounted || typeof document === 'undefined') return null;
+  return createPortal(
     <>
       {/* Hamburger visible only on mobile */}
       <button
@@ -63,7 +64,8 @@ const MobileNav: React.FC = () => {
           </nav>
         </div>
       )}
-    </>
+    </>,
+    document.body
   );
 };
 
