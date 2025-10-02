@@ -3,6 +3,18 @@ import { getAuth } from "firebase/auth";
 
 // Appelle fetch et ajoute l’en-tête Authorization si un token Firebase est dispo.
 // Si aucun token en localStorage, on tente de le récupérer via Firebase (si initialisé).
+export function redirectToLogin() {
+  if (typeof window !== 'undefined' && window.location) {
+    if (typeof window.location.assign === 'function') {
+      window.location.assign("/login");
+    } else {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      window.location.href = "/login";
+    }
+  }
+}
+
 export async function fetchWithAuth(url: string, options: RequestInit = {}) {
   let token = localStorage.getItem("token");
 
@@ -29,7 +41,7 @@ export async function fetchWithAuth(url: string, options: RequestInit = {}) {
   if (res.status === 401) {
     localStorage.removeItem("token");
     localStorage.removeItem("role");
-    window.location.href = "/login";
+    redirectToLogin();
     return null;
   }
   return res;
