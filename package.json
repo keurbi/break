@@ -1,0 +1,10 @@
+{
+  "name": "break-monorepo",
+  "private": true,
+  "workspaces": [],
+  "scripts": {
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd break && npm run dev",
+    "dev": "powershell -NoProfile -Command \"Start-Process powershell -ArgumentList '-NoProfile','-Command','cd backend; npm run dev'; Start-Process powershell -ArgumentList '-NoProfile','-Command','cd break; npm run dev'\""
+  }
+}
