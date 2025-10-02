@@ -32,7 +32,7 @@ export const getAllActivities = async (req: Request, res: Response): Promise<voi
     const nextCursor = snapshot.docs.length === limit ? snapshot.docs[snapshot.docs.length - 1].id : null;
 
   res.json({ items: activities, nextCursor });
-  } catch (err) {
+  } catch {
   res.status(500).json({ error: 'Erreur serveur.' });
   }
 };
@@ -48,7 +48,7 @@ export const getActivityById = async (req: Request, res: Response): Promise<void
     const { resourceUrl, ...rest } = data || {};
     const resource = rest?.resource ?? resourceUrl ?? null;
     res.json({ id: doc.id, ...rest, resource });
-  } catch (err) {
+  } catch {
     res.status(500).json({ error: 'Erreur serveur.' });
   }
 };
@@ -74,7 +74,7 @@ export const createActivity = async (req: Request, res: Response): Promise<void>
     };
     const docRef = await db.collection(COLLECTION).add(payload);
   res.status(201).json({ id: docRef.id });
-  } catch (err) {
+  } catch {
   res.status(400).json({ error: 'Erreur lors de la création.' });
   }
 };
@@ -98,7 +98,7 @@ export const updateActivity = async (req: Request, res: Response): Promise<void>
     updates.updatedAt = admin.firestore.FieldValue.serverTimestamp();
     await db.collection(COLLECTION).doc(id).update(updates);
   res.json({ success: true });
-  } catch (err) {
+  } catch {
   res.status(400).json({ error: 'Erreur lors de la modification.' });
   }
 };
@@ -111,7 +111,7 @@ export const deleteActivity = async (req: Request, res: Response): Promise<void>
       updatedAt: admin.firestore.FieldValue.serverTimestamp(),
     });
   res.status(204).send();
-  } catch (err) {
+  } catch {
   res.status(400).json({ error: 'Erreur lors de la suppression.' });
   }
 };
