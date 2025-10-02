@@ -3,9 +3,11 @@ import Link from 'next/link';
 
 const MobileNav: React.FC = () => {
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const [role, setRole] = useState<string | null>(null);
 
   useEffect(() => {
+    setMounted(true);
     try {
       setRole(localStorage.getItem('role'));
     } catch {
@@ -13,6 +15,7 @@ const MobileNav: React.FC = () => {
     }
   }, []);
 
+  if (!mounted) return null;
   return (
     <>
       {/* Hamburger visible only on mobile */}
