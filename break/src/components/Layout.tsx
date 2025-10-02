@@ -34,13 +34,8 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     <div className="flex min-h-screen">
       <Sidebar />
       <div className="flex-1 md:ml-28 ml-0 bg-tertiary min-h-screen flex flex-col">
-        {/* Placeholders to keep SSR/CSR structure aligned; content hydrates client-only */}
-        <div suppressHydrationWarning aria-hidden="true">
-          <MobileNav />
-        </div>
-        <div suppressHydrationWarning aria-hidden="true">
-          <SearchBar />
-        </div>
+        <MobileNav />
+        <SearchBar />
         {content}
       </div>
     </div>

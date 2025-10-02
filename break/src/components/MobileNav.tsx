@@ -15,11 +15,7 @@ const MobileNav: React.FC = () => {
     }
   }, []);
 
-  if (!mounted) {
-    return (
-      <div className="md:hidden" aria-hidden="true" suppressHydrationWarning />
-    );
-  }
+  if (!mounted) return null;
   return (
     <>
       {/* Hamburger visible only on mobile */}
