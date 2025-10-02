@@ -29,3 +29,16 @@
 	- Paiements (optionnel): STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET
 
 - Frontend: créer `break/.env.local` (Firebase Web config et éventuelles URLs d’API; voir `break/README.md`)
+
+## CI/CD
+
+- CI (GitHub Actions): chaque PR/push sur `main` lance lint+tests pour `backend/` et `break/`.
+- Déploiement:
+	- Frontend (Netlify): un build hook est déclenché automatiquement sur push `main` si le secret `NETLIFY_BUILD_HOOK_URL` est défini dans GitHub Secrets.
+	- Backend (Render): un deploy hook est déclenché automatiquement sur push `main` si le secret `RENDER_DEPLOY_HOOK_URL` est défini.
+
+Secrets à configurer dans le repo GitHub (Settings > Secrets and variables > Actions):
+
+- NETLIFY_BUILD_HOOK_URL: URL du build hook Netlify du site frontend.
+- RENDER_DEPLOY_HOOK_URL: URL du deploy hook Render du service backend.
+- (Optionnel backend) STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET si vous utilisez les paiements en prod.
