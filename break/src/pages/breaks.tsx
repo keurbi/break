@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Layout from "../components/Layout";
 import { getAuth } from "firebase/auth";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
+import { getClientApp } from "../firebase";
 import PageTitleCard from "../components/PageTitleCard";
 import PageContainer from "../components/PageContainer";
 
@@ -53,8 +54,13 @@ const Breaks = () => {
   const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
-    const auth = getAuth();
-    setUserId(auth.currentUser ? auth.currentUser.uid : null);
+    const app = getClientApp();
+    if (app) {
+      const auth = getAuth(app);
+      setUserId(auth.currentUser ? auth.currentUser.uid : null);
+    } else {
+      setUserId(null);
+    }
 
     const savedBreaks = localStorage.getItem("breaks");
     const savedOnBreak = localStorage.getItem("onBreak");
@@ -97,8 +103,9 @@ const Breaks = () => {
   }, [onBreak, currentBreak]);
 
   const handleStartBreak = () => {
-    const auth = getAuth();
-    const uid = auth.currentUser ? auth.currentUser.uid : "";
+    const app = getClientApp();
+    const auth = app ? getAuth(app) : null;
+    const uid = auth && auth.currentUser ? auth.currentUser.uid : "";
     const newBreak: Break = {
       id: Date.now(),
       start: new Date().toLocaleTimeString(),
@@ -117,10 +124,11 @@ const Breaks = () => {
     setBreaks(updatedBreaks);
     setOnBreak(false);
     try {
-      const auth = getAuth();
-      const user = auth.currentUser;
+      const app = getClientApp();
+      const auth = app ? getAuth(app) : null;
+      const user = auth ? auth.currentUser : null;
       if (user && breaks.length > 0) {
-        const db = getFirestore();
+        const db = getFirestore(app!);
         const start = breaks[0].start;
         const end = endTime;
         const [h1, m1, s1] = start.split(":").map(Number);
