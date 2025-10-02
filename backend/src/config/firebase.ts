@@ -53,7 +53,6 @@ const buildCredentialObject = (): {
     }
     return null;
   } catch (err) {
-    // eslint-disable-next-line no-console
     console.error("Erreur parsing des identifiants Firebase:", err);
     return null;
   }
@@ -67,10 +66,8 @@ const initializeFirebase = () => {
     const msg =
       "Firebase non initialisé: variables manquantes. Voir .env.example (FIREBASE_*).";
     if (process.env.NODE_ENV === "production") {
-      // eslint-disable-next-line no-console
       console.error(msg);
     } else {
-      // eslint-disable-next-line no-console
       console.warn(msg);
     }
     return;
@@ -82,7 +79,6 @@ const initializeFirebase = () => {
       privateKey: creds.privateKey,
     }),
   });
-  // eslint-disable-next-line no-console
   console.log("Firebase Admin initialisé (project:", creds.projectId, ")");
 };
 

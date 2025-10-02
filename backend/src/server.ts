@@ -14,6 +14,8 @@ import { errorHandler } from './middlewares/errorHandler';
 dotenv.config();
 export const app = express();
 app.disable('x-powered-by');
+app.set('etag', 'strong');
+app.set('trust proxy', true);
 
 const corsOrigin = process.env.CORS_ORIGIN || 'http://localhost:3000';
 app.use(cors({
