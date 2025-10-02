@@ -12,7 +12,7 @@ import { stripeWebhookHandler } from './controllers/paymentsController';
 import { errorHandler } from './middlewares/errorHandler';
 
 dotenv.config();
-const app = express();
+export const app = express();
 app.disable('x-powered-by');
 
 const corsOrigin = process.env.CORS_ORIGIN || 'http://localhost:3000';
@@ -55,7 +55,11 @@ app.use((req, res) => {
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 3100;
-app.listen(PORT, () => {
-  // eslint-disable-next-line no-console
-  console.log(`Server is running on port ${PORT}`);
-});
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(PORT, () => {
+    // eslint-disable-next-line no-console
+    console.log(`Server is running on port ${PORT}`);
+  });
+}
+
+export default app;
