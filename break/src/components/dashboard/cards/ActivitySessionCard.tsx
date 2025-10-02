@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Activity, ActivitySession } from "../../../types/dashboard";
 
 interface ActivitySessionCardProps {
@@ -10,6 +10,22 @@ const ActivitySessionCard: React.FC<ActivitySessionCardProps> = ({
   session,
   activity,
 }) => {
+  const [dateText, setDateText] = useState<string>(() => {
+    // Stable SSR: use ISO date string to avoid locale mismatch
+    try {
+      return new Date(session.date).toISOString().slice(0, 10);
+    } catch {
+      return String(session.date);
+    }
+  });
+
+  useEffect(() => {
+    // Client: replace with locale-specific formatting after mount
+    try {
+      setDateText(new Date(session.date).toLocaleDateString());
+    } catch {}
+  }, [session.date]);
+
   return (
     <div className="bg-gradient-to-r from-gray-50 to-white p-4 rounded-xl border border-gray-200 hover:shadow-lg transition-all duration-200">
       <div className="flex justify-between items-start mb-3">
@@ -21,7 +37,7 @@ const ActivitySessionCard: React.FC<ActivitySessionCardProps> = ({
             {activity?.description || "Description non disponible"}
           </p>
           <div className="flex items-center space-x-3 text-sm text-gray-500">
-            <span>📅 {new Date(session.date).toLocaleDateString()}</span>
+            <span suppressHydrationWarning>📅 {dateText}</span>
             <span>⏱️ {session.duration} min</span>
             <span>📊 Difficulté {activity?.difficulty || "N/A"}/5</span>
           </div>

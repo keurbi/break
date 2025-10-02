@@ -1,14 +1,17 @@
+"use client";
 import React from "react";
 import { Bell, LogOut } from "lucide-react";
 import { getAuth, signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
-import "../firebase";
+import { getClientApp } from "../firebase";
 
 const SearchBar: React.FC = () => {
   const router = useRouter();
 
   const handleLogout = async () => {
-    await signOut(getAuth());
+    const app = getClientApp();
+    const auth = app ? getAuth(app) : getAuth();
+    await signOut(auth);
     localStorage.removeItem("token");
     localStorage.removeItem("role");
     router.push("/login");

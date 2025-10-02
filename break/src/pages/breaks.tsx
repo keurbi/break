@@ -168,9 +168,11 @@ const Breaks = () => {
                   whiteSpace: "nowrap",
                 }}
               >
-                {onBreak && currentBreak && !currentBreak.end
-                  ? formatTimer(currentSeconds)
-                  : formatTimer(0)}
+                <span suppressHydrationWarning>
+                  {onBreak && currentBreak && !currentBreak.end
+                    ? formatTimer(currentSeconds)
+                    : formatTimer(0)}
+                </span>
               </div>
               {!onBreak ? (
                 <button
