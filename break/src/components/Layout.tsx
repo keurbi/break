@@ -37,9 +37,11 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     <div className="flex min-h-screen">
       <Sidebar />
       <div className="flex-1 md:ml-28 ml-0 bg-tertiary min-h-screen flex flex-col">
+        {/* Top toolbar: render a stable container on SSR; SearchBar mounts client-side inside */}
+        <div className="w-full">
+          <SearchBar />
+        </div>
         {content}
-        {/* Render client-only UI after main content to keep SSR/CSR order stable */}
-        <SearchBar />
         <MobileNav />
       </div>
     </div>
