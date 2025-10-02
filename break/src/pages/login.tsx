@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail, ActionCodeSettings } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 import '../firebase';
 import Image from 'next/image';
@@ -67,14 +67,38 @@ const LoginPage = () => {
       setResetMessage('Veuillez entrer votre email.');
       return;
     }
+    // Basic email format check for quick UX feedback
+    const emailRegex = /[^@\s]+@[^@\s]+\.[^@\s]+/;
+    if (!emailRegex.test(resetEmail)) {
+      setResetMessage('Adresse email invalide.');
+      return;
+    }
     setResetLoading(true);
     try {
       const auth = getAuth();
-      await sendPasswordResetEmail(auth, resetEmail);
-      setResetMessage('Un email de réinitialisation a été envoyé.');
+      // Localiser l'email et la page d'action
+      auth.languageCode = 'fr';
+      const actionCodeSettings: ActionCodeSettings = {
+        url:
+          (typeof window !== 'undefined' &&
+            (process.env.NEXT_PUBLIC_RESET_REDIRECT_URL || `${window.location.origin}/login`)) ||
+          'http://localhost:3000/login',
+        handleCodeInApp: false,
+      };
+      await sendPasswordResetEmail(auth, resetEmail, actionCodeSettings);
+      // Bonnes pratiques: ne pas divulguer si l'email existe
+      setResetMessage("Si un compte existe pour cet email, un lien de réinitialisation a été envoyé.");
     } catch (err: unknown) {
-      const message = (err as { message?: string })?.message || 'Erreur lors de la demande.';
-      setResetMessage(message);
+      // Erreurs communes: auth/user-not-found, auth/invalid-email, auth/missing-android-pkg-name, auth/invalid-continue-uri
+      const code = (err as { code?: string })?.code;
+      if (code === 'auth/invalid-email') {
+        setResetMessage('Adresse email invalide.');
+      } else if (code === 'auth/invalid-continue-uri') {
+        setResetMessage("URL de redirection invalide. Vérifiez NEXT_PUBLIC_RESET_REDIRECT_URL et les domaines autorisés Firebase.");
+      } else {
+        // Message générique pour éviter l'énumération de comptes
+        setResetMessage("Si un compte existe pour cet email, un lien de réinitialisation a été envoyé.");
+      }
     } finally {
       setResetLoading(false);
     }

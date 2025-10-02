@@ -30,8 +30,14 @@ Crée `break/.env.local` (ou copie `.env.local.example`) avec :
 - NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
 - NEXT_PUBLIC_FIREBASE_APP_ID
 - NEXT_PUBLIC_API_BASE (optional, default http://localhost:3100)
+ - NEXT_PUBLIC_RESET_REDIRECT_URL (ex: http://localhost:3000/login)
 
 Crée `backend/.env` (ou copie `backend/.env.example`) avec :
+
+### Reset de mot de passe (Firebase)
+
+- Assure-toi que le domaine de `NEXT_PUBLIC_RESET_REDIRECT_URL` est autorisé dans Firebase (Authentication > Settings > Authorized domains) et que l’URL est valide.
+- L’email de reset est localisé (fr). Par sécurité, le message affiché est générique (évite l’énumération d’emails).
 
 - NODE_ENV=development
 - PORT=3100
