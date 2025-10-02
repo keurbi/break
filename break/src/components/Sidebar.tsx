@@ -83,7 +83,7 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className="w-28 h-full bg-white fixed flex flex-col items-center py-4">
+  <div data-testid="sidebar" className="hidden md:flex w-28 h-full bg-white fixed flex-col items-center py-4">
       <div className="flex flex-col items-center">
         <Link href="/welcome">
           <div

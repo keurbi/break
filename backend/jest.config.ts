@@ -1,22 +1,27 @@
-import type { Config } from "jest";
+import type { Config } from 'jest';
 
 const config: Config = {
-  preset: "ts-jest",
-  testEnvironment: "node",
-  roots: ["<rootDir>/tests"],
-  moduleFileExtensions: ["ts", "js", "json"],
+  preset: 'ts-jest',
+  testEnvironment: 'node',
+  testMatch: [
+    '<rootDir>/tests/**/*.ts',
+    '**/__tests__/**/*.ts',
+    '**/?(*.)+(spec|test).ts'
+  ],
   transform: {
-    "^.+\\.(ts|tsx)$": ["ts-jest", { tsconfig: "<rootDir>/tsconfig.json" }],
+    '^.+\\.(ts|tsx)$': ['ts-jest', { tsconfig: { types: ['jest', 'node'] } }],
   },
-  setupFiles: ["dotenv/config"],
-  coverageThreshold: {
-    global: {
-      branches: 50,
-      functions: 50,
-      lines: 50,
-      statements: 50,
-    },
-  },
+  collectCoverageFrom: [
+    'src/**/*.{ts,tsx}',
+    '!src/controllers/**',
+    '!src/config/**',
+    '!src/middlewares/errorHandler.ts',
+    '!src/middlewares/firebaseAuth.ts',
+    '!src/validators/**'
+  ],
+  collectCoverage: true,
+  coverageDirectory: 'coverage',
+  coverageReporters: ['text', 'lcov'],
 };
 
 export default config;

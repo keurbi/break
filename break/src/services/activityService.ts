@@ -1,5 +1,4 @@
 import {
-  getFirestore,
   collection,
   addDoc,
   serverTimestamp,
@@ -9,7 +8,7 @@ import {
   limit,
   getDocs,
 } from "firebase/firestore";
-import { app } from "../firebase";
+import { getDb } from "../firebase";
 import { ActivitySession } from "../types/dashboard";
 
 export interface ActivitySessionData {
@@ -34,7 +33,8 @@ export const saveActivitySession = async (
   sessionData: ActivitySessionData
 ): Promise<string> => {
   try {
-    const db = getFirestore(app);
+  const db = getDb();
+  if (!db) throw new Error("Firestore indisponible dans l'environnement actuel");
 
     const docData = {
       ...sessionData,
@@ -59,7 +59,8 @@ export const getActivitySessions = async (
   userId?: string
 ): Promise<ActivitySession[]> => {
   try {
-    const db = getFirestore(app);
+  const db = getDb();
+  if (!db) return [];
     let q;
 
     if (userId) {

@@ -37,9 +37,9 @@ export const getAllActivities = async (
         ? snapshot.docs[snapshot.docs.length - 1].id
         : null;
 
-    res.json({ items: activities, nextCursor });
-  } catch (err) {
-    res.status(500).json({ error: "Erreur serveur." });
+  res.json({ items: activities, nextCursor });
+  } catch {
+  res.status(500).json({ error: 'Erreur serveur.' });
   }
 };
 
@@ -57,8 +57,8 @@ export const getActivityById = async (
     const { resourceUrl, ...rest } = data || {};
     const resource = rest?.resource ?? resourceUrl ?? null;
     res.json({ id: doc.id, ...rest, resource });
-  } catch (err) {
-    res.status(500).json({ error: "Erreur serveur." });
+  } catch {
+    res.status(500).json({ error: 'Erreur serveur.' });
   }
 };
 
@@ -88,9 +88,9 @@ export const createActivity = async (
       deletedAt: null,
     };
     const docRef = await db.collection(COLLECTION).add(payload);
-    res.status(201).json({ id: docRef.id });
-  } catch (err) {
-    res.status(400).json({ error: "Erreur lors de la création." });
+  res.status(201).json({ id: docRef.id });
+  } catch {
+  res.status(400).json({ error: 'Erreur lors de la création.' });
   }
 };
 
@@ -121,9 +121,9 @@ export const updateActivity = async (
     }
     updates.updatedAt = admin.firestore.FieldValue.serverTimestamp();
     await db.collection(COLLECTION).doc(id).update(updates);
-    res.json({ success: true });
-  } catch (err) {
-    res.status(400).json({ error: "Erreur lors de la modification." });
+  res.json({ success: true });
+  } catch {
+  res.status(400).json({ error: 'Erreur lors de la modification.' });
   }
 };
 
@@ -137,8 +137,8 @@ export const deleteActivity = async (
       deletedAt: admin.firestore.FieldValue.serverTimestamp(),
       updatedAt: admin.firestore.FieldValue.serverTimestamp(),
     });
-    res.status(204).send();
-  } catch (err) {
-    res.status(400).json({ error: "Erreur lors de la suppression." });
+  res.status(204).send();
+  } catch {
+  res.status(400).json({ error: 'Erreur lors de la suppression.' });
   }
 };

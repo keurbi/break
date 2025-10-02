@@ -1,8 +1,8 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Layout from "../components/Layout";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
-import { app } from "../firebase";
+import { collection, getDocs } from "firebase/firestore";
+import { getDb } from "../firebase";
 import ActivityCard from "../components/ActivityCard";
 import ActivityDetailsModal from "../components/activity/ActivityDetailsModal";
 import ActivitySession from "../components/activity/ActivitySession";
@@ -66,7 +66,8 @@ const ActivitiesPage = () => {
 
   useEffect(() => {
     const fetchActivities = async () => {
-      const db = getFirestore(app);
+      const db = getDb();
+      if (!db) return;
       const querySnapshot = await getDocs(collection(db, "activities"));
       const acts: Activity[] = [];
       querySnapshot.forEach((doc) => {

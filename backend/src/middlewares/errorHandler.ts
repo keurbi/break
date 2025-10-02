@@ -7,10 +7,9 @@ export const errorHandler = (
   _next: NextFunction
 ): void => {
   const status = err.status || 500;
-  const message = err.message || "Erreur serveur.";
-  if (process.env.NODE_ENV !== "production") {
-    // En non-prod, on log l’erreur complète en console pour faciliter le debug
-    console.error(err); // eslint-disable-line no-console
+  const message = err.message || 'Erreur serveur.';
+  if (process.env.NODE_ENV !== 'production') {
+    console.error(err);
   }
   res.status(status).json({ error: message });
 };

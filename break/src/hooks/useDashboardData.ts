@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
-import { app } from "../firebase";
+import { collection, getDocs } from "firebase/firestore";
+import { getDb } from "../firebase";
 import {
   Break,
   Activity,
@@ -34,7 +34,8 @@ export const useDashboardData = () => {
         }
 
         // Fetch activities from Firestore
-        const db = getFirestore(app);
+  const db = getDb();
+  if (!db) return;
         const activitiesSnapshot = await getDocs(collection(db, "activities"));
         const fetchedActivities: Activity[] = [];
     activitiesSnapshot.forEach((doc) => {

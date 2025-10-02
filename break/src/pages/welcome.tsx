@@ -1,26 +1,35 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import Layout from '../components/Layout';
 import { createCheckoutAndRedirect } from '../services/paymentsService';
 import DonationModal from '../components/DonationModal';
+import { useCurrentUser } from '../hooks/useCurrentUser';
+import { useDashboardData } from '../hooks/useDashboardData';
 
 const WelcomePage = () => {
-  const firstName = "John";
-  const breaksTaken = 4;
-  const breakMinutes = 45;
-  const wellnessStreak = 5;
-  const sessionsForAchievement = 2;
-  const nextBreakTime = "10:30 AM";
-  const recommendedActivity = "Exercice de respiration de 5 minutes";
-  const stressScore = 3;
+  const { profile } = useCurrentUser();
+  const { stats } = useDashboardData();
+
+  const firstName = profile?.firstName || (profile?.displayName?.split(' ')[0] ?? 'Utilisateur');
+  // Aujourd'hui
+  const breaksTaken = stats.totalPauses;
+  const breakMinutes = stats.totalMinutes;
+  // Série bien-être simple: nombre de jours consécutifs avec au moins 1 pause (approx locale)
+  const wellnessStreak = useMemo(() => {
+    // basique: si aujourd'hui >0, on affiche 1; laisse à 0 sinon.
+    return breaksTaken > 0 ? 1 : 0;
+  }, [breaksTaken]);
+  const sessionsForAchievement = 2; // placeholder tant que pas de règle métier précise
+  const nextBreakTime = '10:30'; // placeholder UX – peut être calculé via heuristique
+  const recommendedActivity = 'Exercice de respiration de 5 minutes';
+  const stressScore = Math.max(1, Math.round(5 - stats.avgStressReduction));
 
   const [donateOpen, setDonateOpen] = useState<boolean>(false);
 
   const startDonation = async (amountCents: number) => {
     try {
       await createCheckoutAndRedirect(amountCents);
-    } catch (e) {
-      // eslint-disable-next-line no-console
-      console.error(e);
+    } catch {
+      console.error('Stripe redirect failed');
       alert('Erreur lors de la redirection vers Stripe');
     }
   };
@@ -32,7 +41,7 @@ const WelcomePage = () => {
           <div className="flex-1 bg-white shadow-md rounded-lg p-6">
             <h2 className="text-3xl font-extrabold mb-6 text-gray-800">👋 Bon retour, {firstName} !</h2>
             <p className="text-lg text-gray-700">
-              Hier, vous avez pris <strong className="underline">{breaksTaken}</strong> pauses totalisant <strong className="underline">{breakMinutes} minutes</strong>.
+              Aujourd’hui, vous avez pris <strong className="underline">{breaksTaken}</strong> pauses totalisant <strong className="underline">{breakMinutes} minutes</strong>.
             </p>
             <p className="text-lg mt-2 text-gray-700">
               🔥 Vous êtes sur une série de bien‑être de <strong className="underline">{wellnessStreak} jours</strong> !

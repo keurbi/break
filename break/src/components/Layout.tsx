@@ -1,5 +1,6 @@
 import React from 'react';
 import Sidebar from './Sidebar';
+import MobileNav from './MobileNav';
 import SearchBar from './SearchBar';
 import { useEffect } from 'react';
 import { getAuth } from 'firebase/auth';
@@ -25,7 +26,8 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <div className="flex min-h-screen">
       <Sidebar />
-      <div className="flex-1 ml-28 bg-tertiary min-h-screen flex flex-col">
+      <div className="flex-1 md:ml-28 ml-0 bg-tertiary min-h-screen flex flex-col">
+        <MobileNav />
         <SearchBar />
         <main className="flex-1 p-4">
           {children}
