@@ -1,5 +1,7 @@
 ## Démarrage
 
+[![CI](https://github.com/keurbi/break/actions/workflows/ci.yml/badge.svg)](https://github.com/keurbi/break/actions/workflows/ci.yml)
+
 Lance le serveur de développement :
 
 ```bash
@@ -19,7 +21,7 @@ Tu peux commencer à éditer via `app/page.tsx` (rechargement automatique activ�
 
 ## Configuration des environnements
 
-Crée `break/.env.local` avec :
+Crée `break/.env.local` (ou copie `.env.local.example`) avec :
 
 - NEXT_PUBLIC_FIREBASE_API_KEY
 - NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
@@ -29,7 +31,7 @@ Crée `break/.env.local` avec :
 - NEXT_PUBLIC_FIREBASE_APP_ID
 - NEXT_PUBLIC_API_BASE (optional, default http://localhost:3100)
 
-Crée `backend/.env` avec :
+Crée `backend/.env` (ou copie `backend/.env.example`) avec :
 
 - NODE_ENV=development
 - PORT=3100
