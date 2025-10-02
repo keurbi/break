@@ -5,11 +5,14 @@ import { useEffect } from 'react';
 const MobileNav = dynamic(() => import('./MobileNav'), { ssr: false });
 const SearchBar = dynamic(() => import('./SearchBar'), { ssr: false });
 import { getAuth } from 'firebase/auth';
+import { getClientApp } from '../firebase';
 
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   useEffect(() => {
-  const auth = getAuth();
+  const app = getClientApp();
+  if (!app) return; // SSR or no client app
+  const auth = getAuth(app);
   const unsub = auth.onAuthStateChanged(async (user) => {
     if (user) {
       const tokenResult = await user.getIdTokenResult(true);
@@ -34,9 +37,10 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     <div className="flex min-h-screen">
       <Sidebar />
       <div className="flex-1 md:ml-28 ml-0 bg-tertiary min-h-screen flex flex-col">
-        <MobileNav />
-        <SearchBar />
         {content}
+        {/* Render client-only UI after main content to keep SSR/CSR order stable */}
+        <SearchBar />
+        <MobileNav />
       </div>
     </div>
   );
